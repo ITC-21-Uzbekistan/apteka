@@ -1,0 +1,404 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block btns %}
+    <div class="col-3 py-5 d-flex justify-content-center">
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Создать</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+        </div>
+    </div>
+{% endblock btns %}
+
+
+{% block main %}
+
+    <div class="container">
+        <table class="table table-striped table-hover">
+        <thead class="border-bottom font-weight-bold thead-dark">
+            <tr class="h6">
+                <td>Выбрать</td>
+                <td>Номер накладное</td>
+                <td>Подставшик</td>
+                <td>Число накладное</td>
+                <td>Изменить</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for naklad in nakladnoyi %}
+                    <tr>
+                        <td>
+                            <input class="form-check-input" type="checkbox" value="naklad" id="flexCheckDefault">
+                        </td>
+                        <td>
+                            {{ naklad.nakladnoy_nom }}
+                        </td>
+                        <td>
+                            {{ naklad.postavshik }}
+                        </td>
+                        <td>
+                            {{ naklad.date }}
+                        </td>
+                        <td class="d-flex flex-row justify-content-start align-items-center">
+                            <a href="{% url 'prixodlar_detail' naklad.nakladnoy_nom %}" class="text-success mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-right-square-fill" viewBox="0 0 16 16">
+                                  <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12zM5.904 10.803 10 6.707v2.768a.5.5 0 0 0 1 0V5.5a.5.5 0 0 0-.5-.5H6.525a.5.5 0 1 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 .707.707z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    <!--Создать приходная накладная окно -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Приходная накладная</h4>
+              <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row bg-secondary d-flex align-items-center">
+                        <div class="col-3 d-flex justify-content-center p-1 m-2">
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Печать</button>
+                              <button type="button" class="btn btn-warning">Ценник</button>
+                              <button type="button" class="btn btn-danger">Штрих код</button>
+                            </div>
+                        </div>
+                        <div class="col container d-flex justify-content-center align-items-center">
+                            <div class="row">
+                                <div class="col h1 text-white">{{ vaqt.day }}.{{ vaqt.month }}.{{ vaqt.year }}Год</div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected>Open this select menu</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                            <button type="button" class="btn btn-primary m-1">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col h4">
+                            Товар
+                        </div>
+                        <div class="col h4">
+                            Цена
+                        </div>
+                        <div class="col-2 h4">
+                            Сумма
+                        </div>
+                        <div class="col h4">
+                            Производитель
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead class="border-bottom font-weight-bold">
+                            <tr>
+                                <td>Код</td>
+                                <td>Наменования</td>
+                                <td>Количество</td>
+                                <td>ЕД.ИЗМ</td>
+                                <td>Срок</td>
+                                <td>Покупная</td>
+                                <td>Наценка</td>
+                                <td>Продажа</td>
+                                <td>Покупная</td>
+                                <td>Продажная</td>
+                                <td>Произведитель</td>
+                                <td>Серия</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2245</td>
+                                <td>ge8fhje</td>
+                                <td>52</td>
+                                <td>tabl</td>
+                                <td>22.10.2020</td>
+                                <td>12000</td>
+                                <td>15%</td>
+                                <td>15100</td>
+                                <td>11000</td>
+                                <td>sxcsdvfbg</td>
+                                <td>sdfgh</td>
+                                <td>2651fdef</td>
+                            </tr>
+                            <tr>
+                                <td>2245</td>
+                                <td>ge8fhje</td>
+                                <td>52</td>
+                                <td>tabl</td>
+                                <td>22.10.2020</td>
+                                <td>12000</td>
+                                <td>15%</td>
+                                <td>15100</td>
+                                <td>11000</td>
+                                <td>sxcsdvfbg</td>
+                                <td>sdfgh</td>
+                                <td>2651fdef</td>
+                            </tr>
+                            <tr>
+                                <td>2245</td>
+                                <td>ge8fhje</td>
+                                <td>52</td>
+                                <td>tabl</td>
+                                <td>22.10.2020</td>
+                                <td>12000</td>
+                                <td>15%</td>
+                                <td>15100</td>
+                                <td>11000</td>
+                                <td>sxcsdvfbg</td>
+                                <td>sdfgh</td>
+                                <td>2651fdef</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="container bg-secondary d-flex justify-content-between p-2">
+                    <div class="row">
+                        <div class="col"></div>
+                        <button type="button" class="col btn btn-success mx-1">Сохранить</button>
+                        <button type="button" class="col btn btn-primary mx-1" data-toggle="modal" data-target="#exampleModalCenter">Добавить</button>
+                        <button type="button" class="col btn btn-warning mx-1">Изменить</button>
+                        <button type="button" class="col btn btn-danger mx-1">Удалить</button>
+                    </div>
+                    <button type="button" class="btn btn-black bg-black text-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Изменить приходная накладная-->
+    <div class="modal fade" id="izmenit">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Приходная накладная</h4>
+              <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row bg-secondary d-flex align-items-center">
+                        <div class="col-3 d-flex justify-content-center p-1 m-2">
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Печать</button>
+                              <button type="button" class="btn btn-warning">Ценник</button>
+                              <button type="button" class="btn btn-danger">Штрих код</button>
+                            </div>
+                        </div>
+                        <div class="col container d-flex justify-content-center align-items-center">
+                            <div class="row">
+                                <div class="col h1 text-white">{{ vaqt.day }}.{{ vaqt.month }}.{{ vaqt.year }}Год</div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+                            <select class="form-select" aria-label="Default select example">
+                              <option selected>Open this select menu</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                            <button type="button" class="btn btn-primary m-1">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col h4">
+                            Товар
+                        </div>
+                        <div class="col h4">
+                            Цена
+                        </div>
+                        <div class="col-2 h4">
+                            Сумма
+                        </div>
+                        <div class="col h4">
+                            Производитель
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead class="border-bottom font-weight-bold">
+                            <tr>
+                                <td>Код</td>
+                                <td>Наменования</td>
+                                <td>Количество</td>
+                                <td>ЕД.ИЗМ</td>
+                                <td>Срок</td>
+                                <td>Покупная</td>
+                                <td>Наценка</td>
+                                <td>Продажа</td>
+                                <td>Покупная</td>
+                                <td>Продажная</td>
+                                <td>Произведитель</td>
+                                <td>Серия</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2245</td>
+                                <td>ge8fhje</td>
+                                <td>52</td>
+                                <td>tabl</td>
+                                <td>22.10.2020</td>
+                                <td>12000</td>
+                                <td>15%</td>
+                                <td>15100</td>
+                                <td>11000</td>
+                                <td>sxcsdvfbg</td>
+                                <td>sdfgh</td>
+                                <td>2651fdef</td>
+                            </tr>
+                            <tr>
+                                <td>2245</td>
+                                <td>ge8fhje</td>
+                                <td>52</td>
+                                <td>tabl</td>
+                                <td>22.10.2020</td>
+                                <td>12000</td>
+                                <td>15%</td>
+                                <td>15100</td>
+                                <td>11000</td>
+                                <td>sxcsdvfbg</td>
+                                <td>sdfgh</td>
+                                <td>2651fdef</td>
+                            </tr>
+                            <tr>
+                                <td>2245</td>
+                                <td>ge8fhje</td>
+                                <td>52</td>
+                                <td>tabl</td>
+                                <td>22.10.2020</td>
+                                <td>12000</td>
+                                <td>15%</td>
+                                <td>15100</td>
+                                <td>11000</td>
+                                <td>sxcsdvfbg</td>
+                                <td>sdfgh</td>
+                                <td>2651fdef</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="container bg-secondary d-flex justify-content-between p-2">
+                    <div class="row">
+                        <div class="col"></div>
+                        <button type="button" class="col btn btn-success mx-1">Сохранить</button>
+                        <button type="button" class="col btn btn-primary mx-1" data-toggle="modal" data-target="#exampleModalCenter">Добавить</button>
+                        <button type="button" class="col btn btn-warning mx-1">Изменить</button>
+                        <button type="button" class="col btn btn-danger mx-1">Удалить</button>
+                    </div>
+                    <button type="button" class="btn btn-black bg-black text-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Кнопка добавить -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Штрых код продукта</h5>
+            <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </button>
+          </div>
+          <div class="modal-body">
+              <input type="number" class="form-control">
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-primary">Не существует</button>
+            <div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Принять</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Кнопка принять -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="container col-md-12 p-1" id="bir">
+                      <form action="" method="POST" autocomplete="off" class="px-3">
+                        {% csrf_token %}
+                        {{ form.shtrixKod|as_crispy_field }}
+                        <div class="row">
+                            <div class="col-md-10">
+                                {{ form.name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-1 ml-5">
+                                <br>
+                                <input type="button" class="btn btn-success" value="Создать" data-toggle="modal" data-target="#exampleModalCenter2">
+                            </div>
+                        </div>
+                            {{ form.shtrixKod|as_crispy_field }}
+                            {{ form.name|as_crispy_field }}
+                            {{ form.tip_tovara|as_crispy_field }}
+                            {{ form.shtukPachke|as_crispy_field }}
+                        <input type="submit" value="Submit" class="btn btn-success offset-md-10 mt-4">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка создать -->
+    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle2">Modal title</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body d-flex flex-column justify-content-around">
+            <input type="number" class="form-control my-2">
+            <input type="number" class="form-control my-2">
+            <div class="row my-2">
+                <div class="col-md-7">
+                    <input type="number" class="form-control">
+                </div>
+                <div class="col-md-5">
+                    <input type="number" class="form-control">
+                </div>
+            </div>
+            <input type="number" class="form-control my-2">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Ок</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock main %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h3 class="text-center border-bottom border-dark border-2">Hama dorilar</h3>
+{% endblock header %}
+
+{% block main %}
+    <div class="container" id="bir">
+        <table class="table table-borderless">
+            <thead class="border-bottom font-weight-bold">
+                <tr>
+                    <td>Штрых код продукта</td>
+                    <td>Имя товара</td>
+                    <td>Тип товара</td>
+                    <td>Штук в одно пачке</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in dataset %}
+                    <tr>
+                        <td>{{ data.shtrixKod }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.tip_tovara }}</td>
+                        <td>{{ data.shtukPachke }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock main%}

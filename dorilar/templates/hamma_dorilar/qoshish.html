@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+
+{% block header %}
+    <h3 class="text-center border-bottom border-dark border-2">Dori qoshish</h3>
+{% endblock header %}
+
+{% block main %}
+<div class="container col-md-4 offset-md-4 mt-3 p-3" id="bir">
+      <form action="" method="POST" autocomplete="off">
+        {% csrf_token %}
+        {{ form.shtrixKod|as_crispy_field }}
+        {{ form.name|as_crispy_field }}
+        {{ form.tip_tovara|as_crispy_field }}
+        {{ form.shtukPachke|as_crispy_field }}
+        <input type="submit" value="Submit" class="btn btn-success offset-md-10 mt-4">
+    </form>
+</div>
+
+{% endblock main %}
