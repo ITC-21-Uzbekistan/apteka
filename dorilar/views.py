@@ -1,11 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Tovar, Nakladnoy, NakladnoyNo
-from .forms import TovarForm, NakladnoyForm
+from .models import Tovar, Nakladnoy, NakladnoyNo, Firma
+from .forms import TovarForm, NakladnoyForm, NakladnoyNoForm, FirmaForm
 import datetime
 import django_filters
-
-
 # def create_obj(request):
 #     form = TovarForm(request.POST or None)
 #     if form.is_valid():
@@ -18,15 +16,45 @@ def glavni(request):
 
 
 def prixod(request, id=0):
-    if id == 0:
-        vaqt = datetime.date.today()
-        form = TovarForm()
-        nakladnoyi = NakladnoyNo.objects.all()
-        return render(request, 'prixod/prixod.html', {'form': form, 'vaqt': vaqt, 'nakladnoyi': nakladnoyi})
+    if request.method == "POST":
+        if id == 0:
+            form = NakladnoyNoForm(request.POST or None)
+            if form.is_valid():
+                form.save()
+                return redirect('/prixod/')
+        else:
+            form = NakladnoyForm(request.POST or None)
+            if form.is_valid():
+                form.nakladnoy = NakladnoyNo.objects.get(nakladnoy_nom=id)['id']
+                form.save()
+                return redirect('/prixod/')
     else:
-        nakladnoy = Nakladnoy.objects.filter(nakladnoy__nakladnoy_nom=id)
-        postavshik = NakladnoyNo.objects.get(nakladnoy_nom=id)
-        return render(request, 'prixod/prixod_detail.html', {'nakladnoyi': nakladnoy, 'nomer_nak': id, 'postavshik_nak': postavshik})
+        if id == 0:
+            vaqt = datetime.date.today()
+            form = TovarForm()
+            nakladnoyi = NakladnoyNo.objects.all()
+            nakladnotNoForm = NakladnoyNoForm()
+            return render(request, 'prixod/prixod.html',
+                          {'form': form, 'vaqt': vaqt, 'nakladnoyi': nakladnoyi,
+                           'nakladnotNoForm': nakladnotNoForm})
+        else:
+            nakladnoy = Nakladnoy.objects.filter(nakladnoy__nakladnoy_nom=id)
+            postavshik = NakladnoyNo.objects.get(nakladnoy_nom=id)
+            nakladchikform = NakladnoyForm()
+            return render(request, 'prixod/prixod_detail.html',
+                          {'nakladnoyi': nakladnoy, 'nomer_nak': id, 'postavshik_nak': postavshik, 'nakladchikform': nakladchikform})
+
+
+def postavshik(request):
+    if request.method == "GET":
+        postavshiki = Firma.objects.all()
+        firmaform = FirmaForm()
+        return render(request, 'prixod/postavshik.html', {'postavshiki': postavshiki, 'firmaform': firmaform})
+    else:
+        form = FirmaForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('/prixod/')
 
 
 def prixod_detail(request, id=0):
@@ -36,7 +64,7 @@ def prixod_detail(request, id=0):
         else:
             nakladnoy = Nakladnoy.objects.get(id=id)
             form = NakladnoyForm(instance=nakladnoy)
-        return redirect(request, 'prixod/editPrixod.html', {'form': form})
+        return render(request, 'prixod/prixod_detail.html', {'forma': form})
     else:
         if id == 0:
             form = NakladnoyForm(request.POST)
@@ -46,6 +74,12 @@ def prixod_detail(request, id=0):
         if form.is_valid():
             form.save()
         return redirect('/prixod/')
+
+
+def deleteNakladnoy(request, id):
+    willDelete = NakladnoyNo.objects.get(id=id)
+    willDelete.delete()
+    return redirect('/prixod/')
 
 
 def deletePrixod(request, idd):

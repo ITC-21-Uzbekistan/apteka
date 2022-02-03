@@ -30,12 +30,12 @@ class NakladnoyNo(models.Model):
     postavshik = models.ForeignKey(Firma, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
 
-    def __int__(self):
-        return self.naklad_no
+    def __str__(self):
+        return "{}".format(self.nakladnoy_nom)
 
 
 class Nakladnoy(models.Model):
-    nakladnoy = models.ForeignKey(NakladnoyNo, on_delete=models.CASCADE)
+    nakladnoy = models.ForeignKey(NakladnoyNo, on_delete=models.CASCADE, null=True)
     tovar = models.ForeignKey(Tovar, on_delete=models.CASCADE)
     olingan_soni = models.IntegerField()
     ishlab_chiqaruvchi = models.CharField(max_length=300)

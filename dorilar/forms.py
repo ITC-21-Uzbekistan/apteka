@@ -29,7 +29,7 @@ class TipTovaraForm(forms.ModelForm):
         }
 
 
-class FirmaAdmin(forms.ModelForm):
+class FirmaForm(forms.ModelForm):
 
     class Meta:
         model = Firma
@@ -59,8 +59,7 @@ class NakladnoyForm(forms.ModelForm):
                   )
 
         labels = {
-            'nakladnoy_no': 'Номер накладная',
-            'firma': 'Поставшик',
+            'nakladnoy': 'Номер накладная',
             'tovar': 'Названия препората',
             'olingan_soni': 'Количество прибытий',
             'ishlab_chiqaruvchi': 'Проиводитель',

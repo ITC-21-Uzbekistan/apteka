@@ -37,7 +37,7 @@ class NakladnoyAdmin(admin.ModelAdmin):
 
 
 class NakladnoyNoAdmin(admin.ModelAdmin):
-    list_display = ['nakladnoy_nom', 'postavshik', 'date']
+    list_display = ['id', 'nakladnoy_nom', 'postavshik', 'date']
 
 
 admin.site.register(TipTovara, TipTovaraAdmin)

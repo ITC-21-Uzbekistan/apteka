@@ -5,7 +5,6 @@
     <div class="col-3 py-5 d-flex justify-content-center">
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Создать</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
         </div>
     </div>
 {% endblock btns %}
@@ -62,4 +61,42 @@
             {% endfor %}
         </tbody>
     </table>
+
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header р4">
+                Создания приходная накладная
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ nakladchikform.nakladnoy|as_crispy_field }}
+                    {{ nakladchikform.tovar|as_crispy_field }}
+                    {{ nakladchikform.olingan_soni|as_crispy_field }}
+                    {{ nakladchikform.ishlab_chiqaruvchi|as_crispy_field }}
+                    {{ nakladchikform.dori_sertifikati|as_crispy_field }}
+                    {{ nakladchikform.olingan_narxi|as_crispy_field }}
+                    {{ nakladchikform.ustiga_foiz|as_crispy_field }}
+                    {{ nakladchikform.sotiladigan_narx|as_crispy_field }}
+                    {{ nakladchikform.max_sena|as_crispy_field }}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="container bg-secondary d-flex justify-content-between p-2">
+                    <button type="button" class="btn btn-black bg-black text-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
 {% endblock main %}
