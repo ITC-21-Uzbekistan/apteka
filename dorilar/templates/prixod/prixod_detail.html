@@ -74,17 +74,48 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="" method="post">
+                <form action="{% url 'add_prixod' nomer_nak %}" method="post">
                     {% csrf_token %}
-                    {{ nakladchikform.nakladnoy|as_crispy_field }}
-                    {{ nakladchikform.tovar|as_crispy_field }}
-                    {{ nakladchikform.olingan_soni|as_crispy_field }}
-                    {{ nakladchikform.ishlab_chiqaruvchi|as_crispy_field }}
-                    {{ nakladchikform.dori_sertifikati|as_crispy_field }}
-                    {{ nakladchikform.olingan_narxi|as_crispy_field }}
-                    {{ nakladchikform.ustiga_foiz|as_crispy_field }}
-                    {{ nakladchikform.sotiladigan_narx|as_crispy_field }}
-                    {{ nakladchikform.max_sena|as_crispy_field }}
+                    <div class="row px-2">
+                        <div class="col-10">
+                            <select name="tovar" class="form-select">
+                                <option value="">-------</option>
+                                {% for tovar in tovarlar %}
+                                    <option value="{{ tovar.id }}">{{ tovar.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addTovar">Qoshish</button>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="olingan_soni">Nechta olindi</label>
+                    <input type="number" name="olingan_soni" required class="form-control">
+                    <label for="ishlab_chiqaruvchi">Ishlab chiqaruvchi</label>
+                    <input type="text" name="ishlab_chiqaruvchi" required class="form-control">
+                    <label for="dori_sertifikati">Dori sertifikati</label>
+                    <input type="text" name="dori_sertifikati" required class="form-control">
+                    <div class="row">
+                        <div class="col">
+                            <label for="olingan_narxi">Olingan narxi</label>
+                            <input type="number" name="olingan_narxi" required class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="ustiga_foiz">Ustiga foiz</label>
+                            <input type="number" name="ustiga_foiz" required class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="sotiladigan_narx">Sotiladigan narxi</label>
+                            <input type="number" name="sotiladigan_narx" required class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="max_sena">Maksimum narxi</label>
+                            <input type="number" name="max_sena" required class="form-control">
+                        </div>
+                    </div>
+                    <br>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>
             </div>
@@ -97,6 +128,40 @@
             </div>
           </div>
         </div>
+    </div>
+
+
+    <div class="modal fade" id="addTovar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Sozdat tovar</h5>
+            <button type="button" class="btn-close fs-5" data-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+              <form action="{% url 'create_dori' %}" method="post">
+                  {% csrf_token %}
+                  <label for="shtrixKod">Shtrix kod produkta</label>
+                  <input type="number" class="form-control" name="shtrixKod" required>
+                  <label for="tip">Tip tovara</label>
+                  <select name="tip" class="form-select" required>
+                      {% for tipp in tipTovara %}
+                        <option value="{{ tipp.id }}">{{ tipp.tip }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="name">Imya produkta</label>
+                  <input type="text" class="form-control" name="name" required>
+                  <label for="shtukPachke">Shtuk v pachke</label>
+                  <input type="number" class="form-control" name="shtukPachke" required>
+                  <br>
+                  <button type="submit" class="btn btn-success">Add</button>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
 {% endblock main %}

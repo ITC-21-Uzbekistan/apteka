@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import prixod, deletePrixod, prixod_detail, glavni, postavshik, deleteNakladnoy
+from .views import nakladnoy, deletePrixod, add_dori, glavni, postavshik, deleteNakladnoy, create_dori
 from .views import pereotsenka
 from .views import spisaniya
 from .views import otchoti
@@ -7,9 +7,10 @@ from .views import otchoti
 
 urlpatterns = [
     path('', glavni),
-    path('prixod/', prixod, name='prixod'),
-    path('prixod/<int:id>/', prixod, name='prixodlar_detail'),
-    path('prixod_detail/<int:id>/', prixod_detail, name="prixod_detail"),
+    path('prixod/', nakladnoy, name='prixod'),
+    path('prixod/<int:id>/', nakladnoy, name='prixodlar_detail'),
+    path('add_prixod/<int:id>/', add_dori, name="add_prixod"),
+    path('create_dori/', create_dori, name="create_dori"),
     path('nakladnoy_delete/<int:id>/', deleteNakladnoy, name="deleteNakladnoy"),
     path('prixod/delete/<int:idd>', deletePrixod, name="deleteprixod"),
     path('prixod/firma/', postavshik, name="firma"),

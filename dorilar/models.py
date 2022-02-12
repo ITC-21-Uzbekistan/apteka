@@ -45,7 +45,7 @@ class Nakladnoy(models.Model):
     sotiladigan_narx = models.FloatField()
     max_sena = models.FloatField()
 
-    def __int__(self):
+    def __int__(self):  
         return self.nakladnoy_no
 
 
