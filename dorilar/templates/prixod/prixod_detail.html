@@ -100,15 +100,15 @@
                     <div class="row">
                         <div class="col">
                             <label for="olingan_narxi">Olingan narxi</label>
-                            <input type="number" name="olingan_narxi" required class="form-control">
+                            <input type="number" name="olingan_narxi" required class="form-control" id="olinganNarx" value="">
                         </div>
                         <div class="col">
                             <label for="ustiga_foiz">Ustiga foiz</label>
-                            <input type="number" name="ustiga_foiz" required class="form-control">
+                            <input type="number" name="ustiga_foiz" required class="form-control" id="ustigaFoiz" onkeyup="foiz(this.value)" value="">
                         </div>
                         <div class="col">
                             <label for="sotiladigan_narx">Sotiladigan narxi</label>
-                            <input type="number" name="sotiladigan_narx" required class="form-control">
+                            <input type="number" name="sotiladigan_narx" required class="form-control" id="sotiladiganNarx" onkeyup="narx(this.value)" value="">
                         </div>
                         <div class="col">
                             <label for="max_sena">Maksimum narxi</label>
@@ -163,5 +163,19 @@
         </div>
       </div>
     </div>
-
+    <script>
+        function foiz(foiz){
+            narxi = parseFloat(document.getElementById("olinganNarx").value);
+            goo = narxi + (narxi / 100 * foiz);
+            document.getElementById("sotiladiganNarx").value = goo;
+        }
+        function narx(sotiladigan_narx){
+            narxi = document.getElementById("olinganNarx").value;
+            bir_foiz = parseFloat(narxi / 100);
+            natija = parseFloat(sotiladigan_narx - narxi)
+            nattt = natija / bir_foiz
+            document.getElementById("ustigaFoiz").value = nattt
+        }
+    </script>
 {% endblock main %}
+

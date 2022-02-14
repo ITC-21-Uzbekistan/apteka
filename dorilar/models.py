@@ -49,4 +49,5 @@ class Nakladnoy(models.Model):
         return self.nakladnoy_no
 
 
-
+class Pereotsenka(models.Model):
+    dori = models.ForeignKey(Nakladnoy, on_delete=models.CASCADE)
