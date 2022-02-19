@@ -29,6 +29,8 @@ class NakladnoyAdmin(admin.ModelAdmin):
         'olingan_soni',
         'ishlab_chiqaruvchi',
         'dori_sertifikati',
+        'srok',
+        'date_dobavlen',
         'olingan_narxi',
         'ustiga_foiz',
         'sotiladigan_narx',

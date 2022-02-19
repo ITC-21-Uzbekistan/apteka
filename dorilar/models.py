@@ -40,12 +40,14 @@ class Nakladnoy(models.Model):
     olingan_soni = models.IntegerField()
     ishlab_chiqaruvchi = models.CharField(max_length=300)
     dori_sertifikati = models.CharField(max_length=200)
+    srok = models.DateField()
+    date_dobavlen = models.DateField(auto_now_add=True)
     olingan_narxi = models.FloatField()
     ustiga_foiz = models.FloatField()
     sotiladigan_narx = models.FloatField()
     max_sena = models.FloatField()
 
-    def __int__(self):  
+    def __int__(self):
         return self.nakladnoy_no
 
 

@@ -28,6 +28,8 @@
                 <td>Штук купленный</td>
                 <td>Производитель</td>
                 <td>Сертификат</td>
+                <td>Срок годности</td>
+                <td>Число добавлен</td>
                 <td>Цена покупки</td>
                 <td>Процентов</td>
                 <td>Цена продажи</td>
@@ -45,6 +47,8 @@
                     <td>{{ naklad.olingan_soni }}</td>
                     <td>{{ naklad.ishlab_chiqaruvchi }}</td>
                     <td>{{ naklad.dori_sertifikati }}</td>
+                    <td>{{ naklad.srok }}</td>
+                    <td>{{ naklad.date_dobavlen }}</td>
                     <td>{{ naklad.olingan_narxi }} so'm</td>
                     <td>{{ naklad.ustiga_foiz }} %</td>
                     <td>{{ naklad.sotiladigan_narx }} so'm</td>
@@ -76,6 +80,7 @@
             <div class="modal-body">
                 <form action="{% url 'add_prixod' nomer_nak %}" method="post">
                     {% csrf_token %}
+                    <label for="tovar">Tovar</label>
                     <div class="row px-2">
                         <div class="col-10">
                             <select name="tovar" class="form-select">
@@ -97,6 +102,8 @@
                     <input type="text" name="ishlab_chiqaruvchi" required class="form-control">
                     <label for="dori_sertifikati">Dori sertifikati</label>
                     <input type="text" name="dori_sertifikati" required class="form-control">
+                    <label for="srok">Srok godnosti</label>
+                    <input type="date" name="srok" required class="form-control">
                     <div class="row">
                         <div class="col">
                             <label for="olingan_narxi">Olingan narxi</label>

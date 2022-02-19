@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Tovar, Nakladnoy, NakladnoyNo, Firma
 from .forms import TovarForm, NakladnoyForm, NakladnoyNoForm, FirmaForm, TipTovara
-
+from django.utils.timezone import now
 
 def glavni(request):
     return render(request, 'base.html')
@@ -62,7 +62,7 @@ def create_dori(request):
             name=name,
             shtukPachke=shtukPachke,
         )
-        return HttpResponse("Created")
+        return redirect('/prixod/')
 
 
 def postavshik(request):
@@ -92,6 +92,7 @@ def add_dori(request, id):
         olingan_soni = request.POST.get('olingan_soni')
         ishlab_chiqaruvchi = request.POST.get('ishlab_chiqaruvchi')
         dori_sertifikati = request.POST.get('dori_sertifikati')
+        srok = request.POST.get('srok')
         olingan_narxi = request.POST.get('olingan_narxi')
         ustiga_foiz = request.POST.get('ustiga_foiz')
         sotiladigan_narx = request.POST.get('sotiladigan_narx')
@@ -102,6 +103,7 @@ def add_dori(request, id):
             olingan_soni=olingan_soni,
             ishlab_chiqaruvchi=ishlab_chiqaruvchi,
             dori_sertifikati=dori_sertifikati,
+            srok=srok,
             olingan_narxi=olingan_narxi,
             ustiga_foiz=ustiga_foiz,
             sotiladigan_narx=sotiladigan_narx,
