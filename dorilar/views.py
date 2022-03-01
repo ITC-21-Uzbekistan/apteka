@@ -3,9 +3,12 @@ from django.shortcuts import render, redirect
 from .models import Tovar, Nakladnoy, NakladnoyNo, Firma
 from .forms import TovarForm, NakladnoyForm, NakladnoyNoForm, FirmaForm, TipTovara
 from django.utils.timezone import now
+from django.core import serializers
+
 
 def glavni(request):
-    return render(request, 'base.html')
+    hello = Nakladnoy.objects.all()
+    return render(request, 'base.html', {"hello": hello})
 
 
 def nakladnoy(request, id=0):
@@ -125,7 +128,30 @@ def deletePrixod(request, idd):
 
 
 def pereotsenka(request):
-    return render(request, 'pereotsenka/pereotsenka.html')
+    if request.method == "GET":
+        dorilar = Nakladnoy.objects.all()
+        list_dorilar = list(dorilar.values())
+        list_names = []
+        for dori in list_dorilar:
+            list_names.append({
+                "id": dori['id'],
+                "name": str(Tovar.objects.get(id=dori['tovar_id'])),
+                "nakladnoy": str(NakladnoyNo.objects.get(id=dori['nakladnoy_id'])),
+                "date": str(dori['date_dobavlen'])
+            })
+        print(list_names)
+    return render(
+        request,
+        'pereotsenka/pereotsenka.html',
+        {
+            "dorilar": dorilar,
+            "list_dorilar": list_names
+        }
+    )
+
+
+def newPereotsenka(request, id):
+    return HttpResponse(id)
 
 
 def spisaniya(request):

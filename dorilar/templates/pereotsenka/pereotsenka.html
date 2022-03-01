@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block btns %}
     <div class="col-3 py-5 d-flex justify-content-center">
@@ -7,6 +8,15 @@
 {% endblock btns %}
 
 {% block main %}
+    <style>
+        a{
+            text-decoration: none;
+        }
+        #trans {
+            transition: all 0.5s ease-out;
+        }
+    </style>
+
     <div class="container-fluid bg-silver">
         <table class="table table-striped table-hover">
             <thead class="border-bottom font-weight-bold">
@@ -28,9 +38,29 @@
                 </tr>
             </thead>
             <tbody>
-                {% for naklad in nakladnoyi %}
+                {% for naklad in dorilar %}
                     <tr class="small">
-
+                        <td>{{ naklad.tovar.shtrixKod }}</td>
+                        <td>{{ naklad.tovar.name }}</td>
+                        <td>{{ naklad.tovar.tip_tovara }}</td>
+                        <td>{{ naklad.tovar.shtukPachke }}</td>
+                        <td>{{ naklad.olingan_soni }}</td>
+                        <td>{{ naklad.ishlab_chiqaruvchi }}</td>
+                        <td>{{ naklad.dori_sertifikati }}</td>
+                        <td>{{ naklad.srok }}</td>
+                        <td>{{ naklad.date_dobavlen }}</td>
+                        <td>{{ naklad.olingan_narxi }} so'm</td>
+                        <td>{{ naklad.ustiga_foiz }} %</td>
+                        <td>{{ naklad.sotiladigan_narx }} so'm</td>
+                        <td>{{ naklad.max_sena }} so'm</td>
+                        <td class="d-flex justify-content-evenly align-items-center">
+                            <a href="{% url 'deleteprixod' naklad.id %}" class="text-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                </svg>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -47,15 +77,25 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">
-                <form action="" method="get">
+            <div class="modal-body" id="trans">
+                <form action="" method="POST">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-10">
-                            <input type="text" name="search" class="form-control">
+                            <input type="search" id="form1" autocomplete="off" name="search" class="form-control" onkeyup="searchFun(this.value)" value="">
                         </div>
                         <div class="col-2">
                             <div class="row">
                                 <button type="submit" class="btn btn-success">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hullas row">
+                        <div class="appending col-10">
+                            <div class="row m-2 p-1 bg-warning">
+                                <div class="col">Name</div>
+                                <div class="col">Time</div>
+                                <div class="col">Nakladnoy</div>
                             </div>
                         </div>
                     </div>
@@ -71,4 +111,51 @@
           </div>
         </div>
     </div>
+
+  <script type="">
+    list_dorilar = {{ list_dorilar|safe }}
+
+    function searchFun(value){
+        let a = document.querySelector(".appending").children;
+        for (let hhh = 1; hhh < (a.length); hhh++){
+            a[hhh].remove()
+        }
+        let parent = document.querySelector(".appending")
+        for (let i = 0; i < list_dorilar.length; i++){
+            if(value == ""){
+                for (let hhh = 1; hhh <= (a.length)+1; hhh++){
+                    a[hhh].remove()
+                }
+                parent = removeChild(parent.lastElementChild   )
+            } else if (list_dorilar[i].name.includes(value)) {
+                let newElement = document.createElement('a');
+                let idd = list_dorilar[i].id
+                newElement.setAttribute("href", `/pereotsenka/${idd}`)
+                newElement.classList.add('row');
+                newElement.classList.add('bg-secondary');
+                newElement.classList.add('text-white');
+                newElement.classList.add('m-2');
+                newElement.classList.add('p-1');
+
+                let newName = document.createElement('div');
+                newName.classList.add('col');
+                newName.innerHTML = list_dorilar[i].name;
+                newElement.appendChild(newName)
+
+                let newDate = document.createElement('div');
+                newDate.classList.add('col');
+                newDate.innerHTML = list_dorilar[i].date;
+                newElement.appendChild(newDate)
+
+                let newNak = document.createElement('div');
+                newNak.classList.add('col');
+                newNak.innerHTML = list_dorilar[i].nakladnoy;
+                newElement.appendChild(newNak)
+
+                document.querySelector('.appending').appendChild(newElement);
+            }
+        }
+    }
+
+  </script>
 {% endblock main %}
