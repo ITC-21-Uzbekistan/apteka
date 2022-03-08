@@ -81,22 +81,18 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-10">
-                            <input type="search" id="form1" autocomplete="off" name="search" class="form-control" onkeyup="searchFun(this.value)" value="">
-                        </div>
-                        <div class="col-2">
-                            <div class="row">
-                                <button type="submit" class="btn btn-success">Search</button>
-                            </div>
+                        <div class="col">
+                            <input type="search" id="search" autocomplete="off" name="search" class="form-control">
                         </div>
                     </div>
                     <div class="hullas row">
-                        <div class="appending col-10">
+                        <div class="appending col" id="appending">
                             <div class="row m-2 p-1 bg-warning">
                                 <div class="col">Name</div>
                                 <div class="col">Time</div>
                                 <div class="col">Nakladnoy</div>
                             </div>
+                            <!--Appending will be created here-->
                         </div>
                     </div>
                 </form>
@@ -112,8 +108,50 @@
         </div>
     </div>
 
-  <script type="">
-    list_dorilar = {{ list_dorilar|safe }}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        let search_field = document.getElementById("search");
+        search_field.addEventListener("keyup", () => {
+            let data = document.getElementById("search").value;
+            let check = 0;
+            axios.get('{% url 'search' %}', {
+                params: {
+                    data: data
+                }
+            }).then( res => {
+                console.log(res.data)
+                parent = document.getElementById("appending");
+
+                new_parent = document.createElement("div");
+                new_parent.classList.add("col")
+                new_parent.classList.add("m-2")
+                new_parent.classList.add("p-1")
+                new_parent.classList.add("bg-warning")
+                parent.appendChild(new_parent);
+
+                for(let i = 0; i < res.data.length; i++){
+                    let newElement = document.createElement('a');
+                    newElement.innerHTML = res.data[i].id;
+                    new_parent.appendChild(newElement)
+                    newElement.setAttribute("href", `www.it-club.uz`)
+                    newElement.classList.add("bg-primary")
+                }
+                ++check;
+            })
+        })
+    </script>
+{% endblock main %}
+
+
+
+
+
+
+
+
+
+<!--
+list_dorilar = {{ list_dorilar|safe }}
 
     function searchFun(value){
         let a = document.querySelector(".appending").children;
@@ -157,5 +195,4 @@
         }
     }
 
-  </script>
-{% endblock main %}
+-->

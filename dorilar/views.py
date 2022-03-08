@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .models import Tovar, Nakladnoy, NakladnoyNo, Firma
 from .forms import TovarForm, NakladnoyForm, NakladnoyNoForm, FirmaForm, TipTovara
@@ -6,12 +6,12 @@ from django.utils.timezone import now
 from django.core import serializers
 
 
-def glavni(request):
+async def glavni(request):
     hello = Nakladnoy.objects.all()
     return render(request, 'base.html', {"hello": hello})
 
 
-def nakladnoy(request, id=0):
+async def nakladnoy(request, id=0):
     #bu zapros metodini tekshiradi
     if request.method == "POST":
         #agar zapros post bolsa toldirilgan formani oladi va yangi nakladnoy hosil qiladi
@@ -52,7 +52,7 @@ def nakladnoy(request, id=0):
             )
 
 
-def create_dori(request):
+async def create_dori(request):
     if request.method == "POST":
         shtrixKod = request.POST.get('shtrixKod')
         tip_tovara_id = request.POST.get('tip')
@@ -68,7 +68,7 @@ def create_dori(request):
         return redirect('/prixod/')
 
 
-def postavshik(request):
+async def postavshik(request):
     if request.method == "GET":
         postavshiki = Firma.objects.all()
         firmaform = FirmaForm()
@@ -87,7 +87,7 @@ def postavshik(request):
             return redirect('/prixod/')
 
 
-def add_dori(request, id):
+async def add_dori(request, id):
     if request.method == "POST":
         nakladnoy = NakladnoyNo.objects.get(nakladnoy_nom=id)
         tovar_id = request.POST.get('tovar')
@@ -115,13 +115,13 @@ def add_dori(request, id):
     return redirect('/prixod/{}'.format(id))
 
 
-def deleteNakladnoy(request, id):
+async def deleteNakladnoy(request, id):
     willDelete = NakladnoyNo.objects.get(id=id)
     willDelete.delete()
     return redirect('/prixod/')
 
 
-def deletePrixod(request, idd):
+async def deletePrixod(request, idd):
     willDelete = Nakladnoy.objects.get(id=idd)
     willDelete.delete()
     return redirect("/prixod/")
@@ -150,8 +150,15 @@ def pereotsenka(request):
     )
 
 
-def newPereotsenka(request, id):
+async def newPereotsenka(request, id):
     return HttpResponse(id)
+
+
+def search_tovars(request):
+    will_search = str(request.GET['data'])
+    response = list(Nakladnoy.objects.filter(tovar__name__contains=will_search).values())
+    print(response)
+    return JsonResponse(response, safe=False)
 
 
 def spisaniya(request):
