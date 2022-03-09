@@ -6,12 +6,12 @@ from django.utils.timezone import now
 from django.core import serializers
 
 
-async def glavni(request):
+def glavni(request):
     hello = Nakladnoy.objects.all()
     return render(request, 'base.html', {"hello": hello})
 
 
-async def nakladnoy(request, id=0):
+def nakladnoy(request, id=0):
     #bu zapros metodini tekshiradi
     if request.method == "POST":
         #agar zapros post bolsa toldirilgan formani oladi va yangi nakladnoy hosil qiladi
@@ -52,7 +52,7 @@ async def nakladnoy(request, id=0):
             )
 
 
-async def create_dori(request):
+def create_dori(request):
     if request.method == "POST":
         shtrixKod = request.POST.get('shtrixKod')
         tip_tovara_id = request.POST.get('tip')
@@ -68,7 +68,7 @@ async def create_dori(request):
         return redirect('/prixod/')
 
 
-async def postavshik(request):
+def postavshik(request):
     if request.method == "GET":
         postavshiki = Firma.objects.all()
         firmaform = FirmaForm()
@@ -87,7 +87,7 @@ async def postavshik(request):
             return redirect('/prixod/')
 
 
-async def add_dori(request, id):
+def add_dori(request, id):
     if request.method == "POST":
         nakladnoy = NakladnoyNo.objects.get(nakladnoy_nom=id)
         tovar_id = request.POST.get('tovar')
@@ -115,13 +115,13 @@ async def add_dori(request, id):
     return redirect('/prixod/{}'.format(id))
 
 
-async def deleteNakladnoy(request, id):
+def deleteNakladnoy(request, id):
     willDelete = NakladnoyNo.objects.get(id=id)
     willDelete.delete()
     return redirect('/prixod/')
 
 
-async def deletePrixod(request, idd):
+def deletePrixod(request, idd):
     willDelete = Nakladnoy.objects.get(id=idd)
     willDelete.delete()
     return redirect("/prixod/")
@@ -150,14 +150,21 @@ def pereotsenka(request):
     )
 
 
-async def newPereotsenka(request, id):
+def newPereotsenka(request, id):
     return HttpResponse(id)
 
 
 def search_tovars(request):
     will_search = str(request.GET['data'])
-    response = list(Nakladnoy.objects.filter(tovar__name__contains=will_search).values())
-    print(response)
+    lists = list(Nakladnoy.objects.filter(tovar__name__contains=will_search))
+    response = []
+    for obj in lists:
+        response.append({
+            "name": str(obj.tovar.name),
+            "nakladnoy": int(obj.nakladnoy.nakladnoy_nom),
+            "srok": str(obj.srok),
+            "date": str(obj.date_dobavlen)
+        })
     return JsonResponse(response, safe=False)
 
 

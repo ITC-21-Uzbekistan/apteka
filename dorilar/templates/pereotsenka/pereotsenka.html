@@ -89,10 +89,12 @@
                         <div class="appending col" id="appending">
                             <div class="row m-2 p-1 bg-warning">
                                 <div class="col">Name</div>
+                                <div class="col">Srok</div>
                                 <div class="col">Time</div>
                                 <div class="col">Nakladnoy</div>
                             </div>
                             <!--Appending will be created here-->
+
                         </div>
                     </div>
                 </form>
@@ -108,91 +110,69 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
         let search_field = document.getElementById("search");
+        let check = 0;
         search_field.addEventListener("keyup", () => {
+            if(check != 0){
+                let wildelete = document.querySelectorAll(".dele")
+                for(let i = 0; i < wildelete.length; i++){
+                    wildelete[i].remove();
+                }
+            }
             let data = document.getElementById("search").value;
-            let check = 0;
-            axios.get('{% url 'search' %}', {
-                params: {
-                    data: data
-                }
-            }).then( res => {
-                console.log(res.data)
-                parent = document.getElementById("appending");
+            if(data != ""){
+                axios.get('{% url 'search' %}', {
+                    params: {
+                        data: data
+                    }
+                }).then( res => {
+                    let will_append = document.querySelector(".appending");
+                    console.log(res.data)
+                    res.data.map((elem) => {
 
-                new_parent = document.createElement("div");
-                new_parent.classList.add("col")
-                new_parent.classList.add("m-2")
-                new_parent.classList.add("p-1")
-                new_parent.classList.add("bg-warning")
-                parent.appendChild(new_parent);
+                        let newElement = document.createElement('a');
+                        newElement.classList.add("dele")
+                        newElement.classList.add("row")
+                        newElement.classList.add("text-white")
+                        newElement.classList.add("m-1")
+                        newElement.classList.add("p-1")
+                        will_append.appendChild(newElement)
+                        newElement.setAttribute("href", `www.it-club.uz`)
 
-                for(let i = 0; i < res.data.length; i++){
-                    let newElement = document.createElement('a');
-                    newElement.innerHTML = res.data[i].id;
-                    new_parent.appendChild(newElement)
-                    newElement.setAttribute("href", `www.it-club.uz`)
-                    newElement.classList.add("bg-primary")
-                }
-                ++check;
-            })
+                        let new_name = document.createElement('div');
+                        new_name.classList.add('col')
+                        new_name.classList.add('p-1')
+                        new_name.classList.add('bg-secondary')
+                        new_name.innerHTML = elem.name
+                        newElement.appendChild(new_name)
+
+                        let new_name2 = document.createElement('div');
+                        new_name2.classList.add('col')
+                        new_name2.classList.add('p-1')
+                        new_name2.classList.add('bg-secondary')
+                        new_name2.innerHTML = elem.srok
+                        newElement.appendChild(new_name2)
+
+                        let new_name3 = document.createElement('div');
+                        new_name3.classList.add('col')
+                        new_name3.classList.add('p-1')
+                        new_name3.classList.add('bg-secondary')
+                        new_name3.innerHTML = elem.date
+                        newElement.appendChild(new_name3)
+
+                        let new_name4 = document.createElement('div');
+                        new_name4.classList.add('col')
+                        new_name4.classList.add('p-1')
+                        new_name4.classList.add('bg-secondary')
+                        new_name4.innerHTML = elem.nakladnoy
+                        newElement.appendChild(new_name4)
+
+                        check += 1
+                    })
+                })
+            }
         })
     </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 {% endblock main %}
-
-
-
-
-
-
-
-
-
-<!--
-list_dorilar = {{ list_dorilar|safe }}
-
-    function searchFun(value){
-        let a = document.querySelector(".appending").children;
-        for (let hhh = 1; hhh < (a.length); hhh++){
-            a[hhh].remove()
-        }
-        let parent = document.querySelector(".appending")
-        for (let i = 0; i < list_dorilar.length; i++){
-            if(value == ""){
-                for (let hhh = 1; hhh <= (a.length)+1; hhh++){
-                    a[hhh].remove()
-                }
-                parent = removeChild(parent.lastElementChild   )
-            } else if (list_dorilar[i].name.includes(value)) {
-                let newElement = document.createElement('a');
-                let idd = list_dorilar[i].id
-                newElement.setAttribute("href", `/pereotsenka/${idd}`)
-                newElement.classList.add('row');
-                newElement.classList.add('bg-secondary');
-                newElement.classList.add('text-white');
-                newElement.classList.add('m-2');
-                newElement.classList.add('p-1');
-
-                let newName = document.createElement('div');
-                newName.classList.add('col');
-                newName.innerHTML = list_dorilar[i].name;
-                newElement.appendChild(newName)
-
-                let newDate = document.createElement('div');
-                newDate.classList.add('col');
-                newDate.innerHTML = list_dorilar[i].date;
-                newElement.appendChild(newDate)
-
-                let newNak = document.createElement('div');
-                newNak.classList.add('col');
-                newNak.innerHTML = list_dorilar[i].nakladnoy;
-                newElement.appendChild(newNak)
-
-                document.querySelector('.appending').appendChild(newElement);
-            }
-        }
-    }
-
--->
