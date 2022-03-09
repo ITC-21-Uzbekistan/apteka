@@ -160,6 +160,7 @@ def search_tovars(request):
     response = []
     for obj in lists:
         response.append({
+            "id": int(obj.id),
             "name": str(obj.tovar.name),
             "nakladnoy": int(obj.nakladnoy.nakladnoy_nom),
             "srok": str(obj.srok),
