@@ -52,4 +52,12 @@ class Nakladnoy(models.Model):
 
 
 class Pereotsenka(models.Model):
-    dori = models.ForeignKey(Nakladnoy, on_delete=models.CASCADE)
+    tovar_id = models.BigIntegerField()
+    eski_protsent = models.FloatField()
+    eski_narx = models.FloatField()
+    yengi_foiz = models.FloatField()
+    yengi_narx = models.FloatField()
+    changed_time = models.DateField(auto_now_add=True)
+
+    def __int__(self):
+        return self.tovar_id

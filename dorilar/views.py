@@ -1,9 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from .models import Tovar, Nakladnoy, NakladnoyNo, Firma
+from .models import Tovar, Nakladnoy, NakladnoyNo, Firma, Pereotsenka
 from .forms import TovarForm, NakladnoyForm, NakladnoyNoForm, FirmaForm, TipTovara
 from django.utils.timezone import now
-from django.core import serializers
 
 
 def glavni(request):
@@ -129,32 +128,44 @@ def deletePrixod(request, idd):
 
 def pereotsenka(request):
     if request.method == "GET":
-        dorilar = Nakladnoy.objects.all()
-        list_dorilar = list(dorilar.values())
-        list_names = []
-        for dori in list_dorilar:
-            list_names.append({
-                "id": dori['id'],
-                "name": str(Tovar.objects.get(id=dori['tovar_id'])),
-                "nakladnoy": str(NakladnoyNo.objects.get(id=dori['nakladnoy_id'])),
-                "date": str(dori['date_dobavlen'])
+        pereotsen = Pereotsenka.objects.all()
+        obj = []
+        for elem in pereotsen:
+            obj.append({
+                'name': str(Nakladnoy.objects.get(id=elem.tovar_id).tovar.name),
+                'naklad': int(Nakladnoy.objects.get(id=elem.tovar_id).nakladnoy.nakladnoy_nom),
+                'changes': elem
             })
-        print(list_names)
     return render(
         request,
         'pereotsenka/pereotsenka.html',
         {
-            "dorilar": dorilar,
-            "list_dorilar": list_names
+            "pereotsenki": obj
         }
     )
 
 
 def newPereotsenka(request, id):
     if request.method == "POST":
-        print(request.POST.get("protsent"))
-        print(request.POST.get("narx"))
-        return HttpResponse("Successfully hacked!")
+        will_get = Nakladnoy.objects.get(id=id)
+        will_save = {
+            "tovar_id": int(id),
+            "eski_protsent": float(will_get.ustiga_foiz),
+            "eski_narx": float(will_get.sotiladigan_narx),
+            "yengi_foiz": float(request.POST.get('protsent')),
+            "yengi_narx": float(request.POST.get('narx')),
+        }
+        Pereotsenka.objects.create(
+            tovar_id=will_save['tovar_id'],
+            eski_protsent=will_save['eski_protsent'],
+            eski_narx=will_save['eski_narx'],
+            yengi_foiz=will_save['yengi_foiz'],
+            yengi_narx=will_save['yengi_narx']
+        )
+        will_get.ustiga_foiz=request.POST.get('protsent')
+        will_get.sotiladigan_narx=request.POST.get('narx')
+        will_get.save()
+        return redirect('/pereotsenka/')
     else:
         will_change = Nakladnoy.objects.get(id=id)
         return render(request, 'pereotsenka/pereotsenirovat.html', {"data": will_change})
