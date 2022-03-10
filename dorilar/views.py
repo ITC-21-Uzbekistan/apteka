@@ -151,7 +151,13 @@ def pereotsenka(request):
 
 
 def newPereotsenka(request, id):
-    return HttpResponse(id)
+    if request.method == "POST":
+        print(request.POST.get("protsent"))
+        print(request.POST.get("narx"))
+        return HttpResponse("Successfully hacked!")
+    else:
+        will_change = Nakladnoy.objects.get(id=id)
+        return render(request, 'pereotsenka/pereotsenirovat.html', {"data": will_change})
 
 
 def search_tovars(request):

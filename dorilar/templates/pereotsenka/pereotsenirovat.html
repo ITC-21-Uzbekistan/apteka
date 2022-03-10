@@ -7,53 +7,77 @@
 {% endblock btns %}
 
 {% block main %}
-    <div class="container-fluid bg-silver">
-        <table class="table table-striped table-hover">
-            <thead class="border-bottom font-weight-bold">
-                <tr class="h6">
-                    <td>Штрых код</td>
-                    <td>Названия</td>
-                    <td>Тип</td>
-                    <td>Штук в пачке</td>
-                    <td>Штук купленный</td>
-                    <td>Производитель</td>
-                    <td>Сертификат</td>
-                    <td>Срок годности</td>
-                    <td>Число добавлен</td>
-                    <td>Цена покупки</td>
-                    <td>Процентов</td>
-                    <td>Цена продажи</td>
-                    <td>Максимальная цена</td>
-                    <td>Изменить</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for naklad in nakladnoyi %}
-                    <tr class="small">
-                        <td>{{ naklad.tovar.shtrixKod }}</td>
-                        <td>{{ naklad.tovar.name }}</td>
-                        <td>{{ naklad.tovar.tip_tovara }}</td>
-                        <td>{{ naklad.tovar.shtukPachke }}</td>
-                        <td>{{ naklad.olingan_soni }}</td>
-                        <td>{{ naklad.ishlab_chiqaruvchi }}</td>
-                        <td>{{ naklad.dori_sertifikati }}</td>
-                        <td>{{ naklad.srok }}</td>
-                        <td>{{ naklad.date_dobavlen }}</td>
-                        <td>{{ naklad.olingan_narxi }} so'm</td>
-                        <td>{{ naklad.ustiga_foiz }} %</td>
-                        <td>{{ naklad.sotiladigan_narx }} so'm</td>
-                        <td>{{ naklad.max_sena }} so'm</td>
-                        <td class="d-flex justify-content-evenly align-items-center">
-                            <a href="{% url 'deleteprixod' naklad.id %}" class="text-danger">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="container bg-secondary p-4 rounded mt-5 text-light h5">
+        <div class="row">
+            <div class="col">Shtrix kod:</div>
+            <div class="col">Nazvaniya:</div>
+            <div class="col">Tip:</div>
+            <div class="col">Shtuk v pachke:</div>
+        </div>
+        <div class="row border-bottom">
+            <div class="col">{{ data.tovar.shtrixKod }}</div>
+            <div class="col">{{ data.tovar.name }}</div>
+            <div class="col">{{ data.tovar.tip_tovara }}</div>
+            <div class="col">{{ data.tovar.shtukPachke }}</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">Proizvoditel:</div>
+            <div class="col">Sertifikat:</div>
+            <div class="col">Srok:</div>
+            <div class="col">Chislo dobavlen:</div>
+        </div>
+        <div class="row border-bottom">
+            <div class="col">{{ data.ishlab_chiqaruvchi }}</div>
+            <div class="col">{{ data.dori_sertifikati }}</div>
+            <div class="col">{{ data.srok }}</div>
+            <div class="col">{{ data.date_dobavlen }}</div>
+        </div>
+        <div class="row mt-4 h4">
+            <div class="col">Sena pokupki:</div>
+            <div class="col">Protsent:</div>
+            <div class="col">Sena:</div>
+            <div class="col">Max sena:</div>
+        </div>
+        <div class="row h5 border-bottom">
+            <div class="col">{{ data.olingan_narxi }} so'm</div>
+            <div class="col">{{ data.ustiga_foiz }} so'm</div>
+            <div class="col">{{ data.sotiladigan_narx }} so'm</div>
+            <div class="col">{{ data.max_sena }} so'm</div>
+        </div>
+        <div class="row p-3 mt-4">
+            <form action="/pereotsenka/{{ data.id }}" method="post">
+                {% csrf_token %}
+                <div class="row p-1">
+                    <div class="col">
+                        <label for="protsent">Protsent:</label>
+                        <input type="number" class="form-control" name="protsent" onkeyup="foiz(this.value)" id="ustigaFoiz" value="">
+                    </div>
+                    <div class="col">
+                        <label for="narx">Narx:</label>
+                        <input type="number" class="form-control" name="narx" onkeyup="narxlar(this.value)" id="sotiladiganNarx" value="">
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <button class="btn btn-success">Send</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+        function foiz(foiz){
+            narxi = parseFloat({{ data.olingan_narxi }});
+            goo = narxi + (narxi / 100 * foiz);
+            document.getElementById("sotiladiganNarx").value = goo;
+        }
+
+
+        function narxlar(sotiladiganNarx){
+            narxi = parseFloat({{ data.olingan_narxi }});
+            bir_foiz = parseFloat(narxi / 100);
+            natija = parseFloat(parseFloat(sotiladiganNarx) - narxi);
+            nattt = natija / bir_foiz;
+            document.getElementById("ustigaFoiz").value = nattt
+        }
+    </script>
 {% endblock main %}
