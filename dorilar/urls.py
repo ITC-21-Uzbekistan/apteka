@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import nakladnoy, deletePrixod, add_dori, glavni, postavshik, deleteNakladnoy, create_dori, newPereotsenka, search_tovars
-from .views import pereotsenka
-from .views import spisaniya
+from .views import nakladnoy, deletePrixod, add_dori, glavni, postavshik, deleteNakladnoy, create_dori
+from .views import pereotsenka, newPereotsenka, search_tovars
+from .views import spisaniya, new_spisaniya
 from .views import otchoti
 
 
@@ -20,5 +20,6 @@ urlpatterns = [
     path('search/', search_tovars, name="search"),
 
     path('spisaniya/', spisaniya, name='spisaniya'),
+    path('spisaniya/<int:id>', new_spisaniya, name='new_spisaniya'),
     path('otchoti/', otchoti, name='otchoti'),
 ]

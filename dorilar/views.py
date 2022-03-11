@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from .models import Tovar, Nakladnoy, NakladnoyNo, Firma, Pereotsenka
+from .models import Tovar, Nakladnoy, NakladnoyNo, Firma, Pereotsenka, Spisaniya
 from .forms import TovarForm, NakladnoyForm, NakladnoyNoForm, FirmaForm, TipTovara
 from django.utils.timezone import now
 
@@ -187,7 +187,30 @@ def search_tovars(request):
 
 
 def spisaniya(request):
-    return render(request, 'spisaniya/spisaniya.html')
+    spisaniya = Spisaniya.objects.filter(spisano=False)
+    return render(request, 'spisaniya/spisaniya.html', {'spisaniya': spisaniya})
+
+
+def new_spisaniya(request, id):
+    obj = Nakladnoy.objects.get(id=id)
+    Spisaniya.objects.create(
+        nakladnoy=int(obj.nakladnoy.nakladnoy_nom),
+        tovar=str(obj.tovar.id),
+        olingan_soni=int(obj.olingan_soni),
+        ishlab_chiqaruvchi=str(obj.ishlab_chiqaruvchi),
+        dori_sertifikati=str(obj.dori_sertifikati),
+        srok=obj.srok,
+        date_dobavlen=obj.date_dobavlen,
+        olingan_narxi=float(obj.olingan_narxi),
+        ustiga_foiz=float(obj.ustiga_foiz),
+        sotiladigan_narx=float(obj.sotiladigan_narx),
+        spisano=False
+    )
+    return redirect('/spisaniya/')
+
+
+def will_spisat(request):
+    pass
 
 
 def otchoti(request):

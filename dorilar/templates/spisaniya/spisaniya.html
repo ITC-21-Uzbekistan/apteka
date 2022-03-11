@@ -3,15 +3,185 @@
 {% block btns %}
     <div class="col-3 py-5 d-flex justify-content-center">
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-          <a href=""><button type="button" class="btn btn-success">Создать</button></a>
-          <button type="button" class="btn btn-warning">Изменить</button>
-          <button type="button" class="btn btn-danger">Удалить</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#spisaniya">Dobavit</button>
         </div>
     </div>
 {% endblock btns %}
 
 {% block main %}
-    <div class="container bg-danger">
-        spisaniya
+
+    <style>
+        a{
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="container-fluid bg-silver">
+        <table class="table table-striped table-hover">
+            <thead class="border-bottom font-weight-bold">
+                <tr class="h6">
+                    <td>Названия</td>
+                    <td>Nakladnoy</td>
+                    <td>Штук купленный</td>
+                    <td>Производитель</td>
+                    <td>Сертификат</td>
+                    <td>Срок годности</td>
+                    <td>Число добавлен</td>
+                    <td>Цена покупки</td>
+                    <td>Процентов</td>
+                    <td>Цена продажи</td>
+                    <td>when_spisano</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for elem in spisaniya %}
+                    <tr class="small">
+                        <td>{{ elem.tovar }}</td>
+                        <td>{{ elem.nakladnoy }}</td>
+                        <td>{{ elem.olingan_soni }}</td>
+                        <td>{{ elem.ishlab_chiqaruvchi }}</td>
+                        <td>{{ elem..dori_sertifikati }}</td>
+                        <td>{{ elem.srok }}</td>
+                        <td>{{ elem.date_dobavlen }}</td>
+                        <td>{{ elem.olingan_narxi }}</td>
+                        <td>{{ elem.ustiga_foiz }}</td>
+                        <td>{{ elem.sotiladigan_narx }}</td>
+                        <td>{{ elem.when_spisano }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+    <div class="modal fade" id="spisaniya">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header р4">
+                Переотценка
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="trans">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="search" id="search" autocomplete="off" name="search" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hullas row">
+                        <div class="appending col" id="appending">
+                            <div class="row m-2 p-1 bg-warning">
+                                <div class="col">Name</div>
+                                <div class="col">Srok</div>
+                                <div class="col">Time</div>
+                                <div class="col">Nakladnoy</div>
+                            </div>
+                            <!--Appending will be created here-->
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="container bg-secondary d-flex justify-content-end p-2">
+                    <button type="button" class="btn btn-black bg-black text-white" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Are you sure???</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <a href="" id="conn"><button type="button" class="btn btn-primary">Confirm</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        let search_field = document.getElementById("search");
+        let check = 0;
+        search_field.addEventListener("keyup", () => {
+            if(check != 0){
+                let wildelete = document.querySelectorAll(".dele")
+                for(let i = 0; i < wildelete.length; i++){
+                    wildelete[i].remove();
+                }
+            }
+            let data = document.getElementById("search").value;
+            if(data != ""){
+                axios.get('{% url 'search' %}', {
+                    params: {
+                        data: data
+                    }
+                }).then( res => {
+                    let will_append = document.querySelector(".appending");
+                    console.log(res.data)
+                    res.data.map((elem) => {
+
+                        let newElement = document.createElement('a');
+                        newElement.setAttribute('data-toggle', 'modal')
+                        newElement.setAttribute('data-target', '#confirmm')
+                        newElement.classList.add("dele")
+                        newElement.classList.add("row")
+                        newElement.classList.add("text-white")
+                        newElement.classList.add("m-1")
+                        newElement.classList.add("p-1")
+                        will_append.appendChild(newElement)
+
+
+                        newElement.addEventListener('click', () => {
+                            document.getElementById('conn').href = `/spisaniya/${elem.id}`
+                        })
+
+                        let new_name = document.createElement('div');
+                        new_name.classList.add('col')
+                        new_name.classList.add('p-1')
+                        new_name.classList.add('bg-secondary')
+                        new_name.innerHTML = elem.name
+                        newElement.appendChild(new_name)
+
+                        let new_name2 = document.createElement('div');
+                        new_name2.classList.add('col')
+                        new_name2.classList.add('p-1')
+                        new_name2.classList.add('bg-secondary')
+                        new_name2.innerHTML = elem.srok
+                        newElement.appendChild(new_name2)
+
+                        let new_name3 = document.createElement('div');
+                        new_name3.classList.add('col')
+                        new_name3.classList.add('p-1')
+                        new_name3.classList.add('bg-secondary')
+                        new_name3.innerHTML = elem.date
+                        newElement.appendChild(new_name3)
+
+                        let new_name4 = document.createElement('div');
+                        new_name4.classList.add('col')
+                        new_name4.classList.add('p-1')
+                        new_name4.classList.add('bg-secondary')
+                        new_name4.innerHTML = elem.nakladnoy
+                        newElement.appendChild(new_name4)
+
+                        check += 1
+                    })
+                })
+            }
+        })
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 {% endblock main %}
