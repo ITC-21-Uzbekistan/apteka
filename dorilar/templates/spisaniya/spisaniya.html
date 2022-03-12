@@ -37,16 +37,16 @@
                 {% for elem in spisaniya %}
                     <tr class="small">
                         <td>{{ elem.tovar }}</td>
-                        <td>{{ elem.nakladnoy }}</td>
-                        <td>{{ elem.olingan_soni }}</td>
-                        <td>{{ elem.ishlab_chiqaruvchi }}</td>
-                        <td>{{ elem..dori_sertifikati }}</td>
-                        <td>{{ elem.srok }}</td>
-                        <td>{{ elem.date_dobavlen }}</td>
-                        <td>{{ elem.olingan_narxi }}</td>
-                        <td>{{ elem.ustiga_foiz }}</td>
-                        <td>{{ elem.sotiladigan_narx }}</td>
-                        <td>{{ elem.when_spisano }}</td>
+                        <td>{{ elem.data.nakladnoy }}</td>
+                        <td>{{ elem.data.olingan_soni }}</td>
+                        <td>{{ elem.data.ishlab_chiqaruvchi }}</td>
+                        <td>{{ elem.data.dori_sertifikati }}</td>
+                        <td>{{ elem.data.srok }}</td>
+                        <td>{{ elem.data.date_dobavlen }}</td>
+                        <td>{{ elem.data.olingan_narxi }}</td>
+                        <td>{{ elem.data.ustiga_foiz }}</td>
+                        <td>{{ elem.data.sotiladigan_narx }}</td>
+                        <td>{{ elem.data.when_spisano }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -187,8 +187,15 @@ def search_tovars(request):
 
 
 def spisaniya(request):
-    spisaniya = Spisaniya.objects.filter(spisano=False)
-    return render(request, 'spisaniya/spisaniya.html', {'spisaniya': spisaniya})
+    spisaniya = list(Spisaniya.objects.filter(spisano=False))
+    obj = []
+    for elem in spisaniya:
+        obj.append({
+            "tovar": str(Tovar.objects.get(id=elem.tovar)),
+            "data": elem
+        })
+
+    return render(request, 'spisaniya/spisaniya.html', {'spisaniya': obj})
 
 
 def new_spisaniya(request, id):
@@ -206,6 +213,7 @@ def new_spisaniya(request, id):
         sotiladigan_narx=float(obj.sotiladigan_narx),
         spisano=False
     )
+    obj.delete()
     return redirect('/spisaniya/')
 
 
