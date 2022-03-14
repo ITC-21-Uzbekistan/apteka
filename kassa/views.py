@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def main(request):
-    return render(request, 'kassa/home.html')
+    return render(request, 'kassa/Main.html')
