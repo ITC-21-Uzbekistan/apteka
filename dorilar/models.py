@@ -76,6 +76,3 @@ class Spisaniya(models.Model):
     sotiladigan_narx = models.FloatField()
     when_spisano = models.DateField(auto_now_add=True)
     spisano = models.BooleanField()
-
-    def __str__(self):
-        return self.tovar

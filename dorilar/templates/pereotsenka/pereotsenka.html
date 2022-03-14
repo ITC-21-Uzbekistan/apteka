@@ -101,6 +101,7 @@
                 }
             }
             let data = document.getElementById("search").value;
+            data.toLowerCase();
             if(data != ""){
                 axios.get('{% url 'search' %}', {
                     params: {

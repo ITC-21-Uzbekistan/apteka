@@ -6,8 +6,15 @@ from django.utils.timezone import now
 
 
 def glavni(request):
-    hello = Nakladnoy.objects.all()
-    return render(request, 'base.html', {"hello": hello})
+    if request.method == "POST":
+        login = request.POST.get('login')
+        password = request.POST.get('password')
+        if login == 'admin' and password == '4451122':
+            return redirect('prixod/')
+        else:
+            return HttpResponse("Login or password is incorrect")
+    else:
+        return render(request, 'home.html')
 
 
 def nakladnoy(request, id=0):
@@ -56,7 +63,7 @@ def create_dori(request):
         shtrixKod = request.POST.get('shtrixKod')
         tip_tovara_id = request.POST.get('tip')
         tip_tovara = TipTovara.objects.get(id=tip_tovara_id)
-        name = request.POST.get('name')
+        name = request.POST.get('name').lower()
         shtukPachke = request.POST.get('shtukPachke')
         Tovar.objects.create(
             shtrixKod=shtrixKod,
@@ -200,6 +207,7 @@ def spisaniya(request):
 
 def new_spisaniya(request, id):
     obj = Nakladnoy.objects.get(id=id)
+    pereotsenka = Pereotsenka.objects.get(tovar_id=id)
     Spisaniya.objects.create(
         nakladnoy=int(obj.nakladnoy.nakladnoy_nom),
         tovar=str(obj.tovar.id),
@@ -213,6 +221,7 @@ def new_spisaniya(request, id):
         sotiladigan_narx=float(obj.sotiladigan_narx),
         spisano=False
     )
+    pereotsenka.delete()
     obj.delete()
     return redirect('/spisaniya/')
 
