@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from .views import nakladnoy, deletePrixod, add_dori, glavni, postavshik, deleteNakladnoy, create_dori
 from .views import pereotsenka, newPereotsenka, search_tovars
 from .views import spisaniya, new_spisaniya
@@ -6,7 +6,8 @@ from .views import otchoti
 
 
 urlpatterns = [
-    path('', glavni),
+    path('', include('kassa.urls')),
+    path('admin/', glavni),
     path('prixod/', nakladnoy, name='prixod'),
     path('prixod/<int:id>/', nakladnoy, name='prixodlar_detail'),
     path('add_prixod/<int:id>/', add_dori, name="add_prixod"),

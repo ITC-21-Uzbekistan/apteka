@@ -10,7 +10,7 @@ def glavni(request):
         login = request.POST.get('login')
         password = request.POST.get('password')
         if login == 'admin' and password == '4451122':
-            return redirect('prixod/')
+            return redirect('/prixod/')
         else:
             return HttpResponse("Login or password is incorrect")
     else:
@@ -25,6 +25,8 @@ def nakladnoy(request, id=0):
         if form.is_valid():
             form.save()
             return redirect('/prixod/')
+        else:
+            return HttpResponse("Yemadi")
     else:
         #agar zapros metodi get bolsa
         if id == 0:

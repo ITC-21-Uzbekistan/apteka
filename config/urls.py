@@ -20,8 +20,8 @@ from . import settings
 
 urlpatterns = [
     path('admin_program/', admin.site.urls),
-    path('', include('kassa.urls')),
-    path('admin/', include('dorilar.urls')),
+    path('kassa/', include('kassa.urls')),
+    path('', include('dorilar.urls')),
 ]
 
 if settings.DEBUG:
