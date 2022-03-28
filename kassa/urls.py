@@ -1,8 +1,9 @@
 from django.urls import path
 
-from kassa.views import main, table
+from kassa.views import main, table, get_shtrixkod, make_pay
 
 urlpatterns = [
     path('', main, name="home"),
-    path('table/', table, name="table")
+    path('getshtrix/', get_shtrixkod, name="getShtrix"),
+    path('make_pay/', make_pay, name="make_pay"),
 ]

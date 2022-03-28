@@ -18,175 +18,450 @@
           /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           background: linear-gradient(to top, rgba(48, 207, 208, 0.4), rgba(51, 8, 103, 0.4))
         }
+        #search{
+            border: 0;
+            outline: none;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid p-0 main">
-        <div class="container-fluid gradient-custom d-flex flex-row justify-content-between p-0">
+    <div class="container-fluid p-0 main" id="height">
+        <div class="container-fluid gradient-custom d-flex flex-row justify-content-between p-0" style="height: 5%;">
             <div class="col-1 bg-light d-flex justify-content-center align-items-center rounded my-2 mx-5">
                 <h4 class="mt-2">Logo</h4>
             </div>
             <div class="col-2 d-flex flex-row text-light">
                 <div class="container-fluid d-flex flex-row text-light">
                     <div class="col-7 border-end d-flex justify-content-center align-items-center">
-                        <h4 class="mt-2">15 March</h4>
+                        <h4 class="mt-2" id="date"></h4>
                     </div>
                     <div class="col-5 d-flex justify-content-center align-items-center">
-                        <h4 class="mt-2">14:54</h4>
+                        <h4 class="mt-2" id="time"></h4>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid d-flex justify-content-center p-1">
-            <div class="col-9 d-flex flex-column justify-content-between">
+        <div class="container-fluid d-flex justify-content-center p-0" style="height: 95%;">
+            <div class="col-9 d-flex flex-column">
                 <div class="row p-4 d-flex justify-content-center align-items-center bg-light">
                     <div class="col-10">
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text p-2 bg-primary" id="basic-addon1">
-                                    <h3 class="">>>></h3>
+                        <div class="input-group mb-2 p-0">
+                            <div class="input-group-prepend shadow">
+                                <span class="input-group-text px-2 py-0 h-100 text-light" id="basic-addon1" style="background-color: rgb(0, 148, 214);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="58" fill="currentColor" class="bi bi-upc" viewBox="0 0 16 16">
+                                        <path d="M3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+                                    </svg>
                                 </span>
                             </div>
-                            <input type="text" class="form-control p-2" aria-label="Username" aria-describedby="basic-addon1" style="font-size: 25px;">
+                            <input type="text" class="border shadow" value="" id="default" style="font-size: 25px; outline: none; border: none; width: 90%; height: 60px" onkeydown="myFunction(event)">
                         </div>
                     </div>
                 </div>
-                <div class="col d-flex flex-row justify-content-between">
+                <div class="col m-0 p-0 table-field" style="overflow: scroll;">
                     <table class="table table-striped table-hover">
                         <thead class="border-bottom font-weight-bold">
                             <tr>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
-                                <th>fwfwfwfw</th>
+                                <th>Nakladnoy</th>
+                                <th>Tovar</th>
+                                <th>Srok</th>
+                                <th>Narxi</th>
+                                <th>Soni</th>
+                                <th>Skidka</th>
+                                <th>Summa</th>
                             </tr>
                         </thead>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
-                        <tr>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                            <th>fwfwfwfw</th>
-                        </tr>
+                        <tbody id="table_body">
+
+                        </tbody>
                     </table>
                 </div>
 
-                <div class="container-fluid bg-warning">
-                    dwifughi
+                <div class="row p-3" style="background-color: rgb(210, 210, 210);">
+                    <div class="col">
+                        <div class="row">
+                            <button class="btn btn-secondary">Information</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-secondary my-2">Inkasatsiya</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-secondary">Sale</button>
+                        </div>
+                    </div>
+                    <div class="col mx-2">
+                        <div class="row">
+                            <button class="btn btn-secondary">New chek</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-secondary my-2">Chek</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-secondary">Udalit chek</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <button class="btn btn-secondary">Vozvrat tovara</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-success mt-2" style="padding: 29px;" onclick="make_pay()">Oplatit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-3 bg-dark ms-1" style="height: 860px">
-                rfrfydulctg
+            <div class="col-3" style="height: 100%; background-color: rgb(210, 210, 210)">
+                <div class="container">
+                    <div class="row p-2 d-flex justify-content-between py-2">
+                        <button class="col-8 btn btn-secondary me-1" style="height: 80px;">fff</button>
+                        <button class="col btn btn-secondary ms-1">+</button>
+                    </div>
+                    <div class="row p-2 d-flex justify-content-between py-2">
+                        <button class="col btn btn-secondary me-1" style="height: 80px;">fff</button>
+                        <button class="col btn btn-secondary ms-1" style="height: 80px;">+</button>
+                    </div>
+                    <div class="row p-2 d-flex justify-content-between py-2">
+                        <form>
+                        <input type="text" class="form-control shadow-sm" style="font-size: 35px;" name="polya" value="" id="search">
+                        </form>
+                    </div>
+                    <div class="row p-1 d-flex justify-content-between py-1">
+                        <button class="col btn btn-warning me-1" style="height: 100px;" onclick="insert('+')">+</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('-')">-</button>
+                        <button class="col btn btn-success mx-1" style="height: 100px;" onclick="insert('*')">*</button>
+                        <button class="col btn btn-success ms-1" style="height: 100px;" onclick="insert('/')">/</button>
+                    </div>
+                    <div class="row p-1 d-flex justify-content-between py-1">
+                        <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('1')">1</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('2')">2</button>
+                        <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('3')">3</button>
+                    </div>
+                    <div class="row p-1 d-flex justify-content-between py-1">
+                        <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('4')">4</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('5')">5</button>
+                        <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('6')">6</button>
+                    </div>
+                    <div class="row p-1 d-flex justify-content-between py-1">
+                        <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('7')">7</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('8')">8</button>
+                        <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('9')">9</button>
+                    </div>
+                    <div class="row p-1 d-flex justify-content-between py-1">
+                        <button class="col btn btn-warning" style="height: 100px;" onclick="clean()">C</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('0')">0</button>
+                        <button class="col btn btn-success" style="height: 100px;" onclick="javob()">=</button>
+                    </div>
+                    <div class="container-fluid bg-dark">
+                        Sena:
+                        <br>
+                        <h2 id="umumiy" class="text-light"></h2>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <button class="btn btn-warning" onclick="goo()">Ok Google!</button>
+    <form action="" method="post">
+        {% csrf_token %}
+    </form>
 </body>
+    <script>
+
+    //Jasur kalkulator uchun yozgan funksiyalari
+
+    function insert(ok){
+        document.getElementById("search").value = document.getElementById("search").value + ok;   
+    }
+
+    function clean(){
+        document.getElementById("search").value = "";
+    }
+
+    function javob(){
+        var key = document.getElementById("search").value;    
+        document.getElementById("search").value = eval(key);
+    }
+    
+    //end
+    
+
+    //experiment
+
+    function goo() {
+        console.log(chek)
+    }
+
+    //end
+
+
+    //sayt scroll bolmasligi uchun javob beradigan funksiya
+
+    setInterval(()=>{
+        document.getElementById("height").style.height = window.innerHeight + "px";
+    }, 1);
+
+    //end
+
+
+    //sayt ochilishi bilan shtrix kod yordamida qidiriladigan inputga kiradi
+
+    let ok = document.getElementById('default');
+    ok.focus()
+    ok.select()
+
+    //end
+
+
+    //bu funksiya saytdagi soatga javob beradigan fuksiya
+
+    setInterval(()=>{
+        let now = new Date();
+
+        let date = now.getDate();
+
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let month = months[now.getMonth()];
+
+        document.getElementById('date').innerHTML = `${date} ${month}`;
+
+        let hour = now.getHours();
+        if (hour < 10){
+            hour = `0${hour}`
+        }
+        let minutes = now.getMinutes();
+        if (minutes < 10){
+            minutes = `0${minutes}`
+        }
+        document.getElementById('time').innerHTML = `${hour}:${minutes}`
+    }, 100)
+
+    //end
+
+    var chek = []; //tanlangan tovarlar shu chek arrayiga yig'iladi
+    var umumiy_summa = 0 //bu ozgaruvchiga tanlangan tovarlar narxi qoshib boriladi
+
+
+    const table_body = document.getElementById('table_body');
+
+
+    //bu funksiya yordamida tanlangan shtrix kodni backendga jonatamiz va kelgan javobni qabul qilamiz
+
+    function myFunction(event) {
+        var x = event.keyCode;
+        var shtrixKod = document.getElementById('default').value;
+
+        // If the pressed keyboard button is "a" or "A" (using caps lock or shift), alert some text.
+        if (x == 13) {
+            axios.get("{% url 'getShtrix' %}", {
+                params: {
+                    shtrixKod: shtrixKod
+                }
+            }).then(res => {
+                document.getElementById('default').value = '';
+                if(res.data.except == ''){
+                    let data = res.data.tovar
+
+                    let exists = check_exists_or_no(data.id)
+
+                    if(exists){
+                        add_tovar(data.id)
+                        calculate_summa()
+                    }else{
+                        let template = {
+                            id: parseInt(data.id),
+                            nakladnoy: data.nakladnoy,
+                            tovar: data.tovar,
+                            srok: data.srok,
+                            narx: data.narx,
+                            soni: 1,
+                            summa: data.narx,
+                        }
+                        chek.push(template)
+                        
+                        table_add()
+                        calculate_summa()
+                    }
+
+
+                }else{
+                    document.getElementById('default').value = '';
+                    alert("This tovar doesn't exists")
+                }
+            })
+            calculate_summa()
+        }
+    }
+
+    //end
+
+
+    // kiritilgan tovar array ichida bor yoki yoqligini tekshiradigan funksiya
+
+    function check_exists_or_no(id){
+        let res = false;
+        for(elem of chek){
+            if(elem.id == id){
+                res = true;
+                break;
+            }else{
+                continue;
+            }
+        }
+        return res;
+    }
+
+    //end
+
+
+    //tablega content qoshadigan funksiya
+
+    function table_add(){
+        table_body.innerHTML = '';
+        chek.map(item => {
+            var elem = document.createElement('tr');
+            elem.id = item.id;
+            elem.setAttribute('ondblclick', 'add_tovar(this.id)')
+
+            let nakladnoy = document.createElement('td');
+            nakladnoy.innerHTML = item.nakladnoy;
+            elem.appendChild(nakladnoy);
+
+
+            let tovar = document.createElement('td');
+            tovar.innerHTML = item.tovar;
+            elem.appendChild(tovar);
+
+
+            let srok = document.createElement('td');
+            srok.innerHTML = item.srok;
+            elem.appendChild(srok);
+
+
+            let narx = document.createElement('td');
+            narx.innerHTML = item.narx
+            elem.appendChild(narx)
+
+
+            let soni = document.createElement('td');
+            soni.innerHTML = item.soni
+            elem.appendChild(soni)
+
+
+            let skidka = document.createElement('td');
+            skidka.innerHTML = 0
+            elem.appendChild(skidka)
+
+
+            let summa = document.createElement('td');
+            summa.innerHTML = item.summa
+            elem.appendChild(summa)
+
+
+            let dif =   `<a onclick="delete_item(${item.id})" oncontextmenu="remove_item(${item.id})" style="cursor: pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </a>`
+            let delete_tovar = document.createElement('td');
+            delete_tovar.innerHTML = dif;
+            elem.appendChild(delete_tovar)
+            
+            table_body.appendChild(elem)
+            calculate_summa()
+        })
+    }
+
+    //end
+
+
+
+    //bu funksiya tovar sonini bittaga oshiradi
+
+    function add_tovar(id){
+        for (elem of chek) {
+            if(elem.id == id){
+                elem.soni += 1;
+                elem.summa += elem.narx;
+                table_add()
+                calculate_summa()
+            }
+        }
+    }
+
+    //end
+
+
+    //bu funksiya umumiy summani hisoblab ekranga chiqaradi
+
+    function calculate_summa(){
+        umumiy_summa = 0;
+        for (sum of chek){
+            umumiy_summa += sum.summa;
+        }
+        document.getElementById('umumiy').innerHTML = umumiy_summa;
+    }
+
+    //end
+
+
+    //chekdan tovar sonini bittaga kamaytiradi agar 1 ta qolgan bolsa arraydan ochirib tashlaydigan funksiya
+
+    function delete_item(id){
+        console.log(id);
+        for (let i = 0; i < chek.length; i++){
+            if(chek[i].id == id){
+                if(chek[i].soni == 1){
+                    chek.splice(i, 1)
+                    table_add()
+                    calculate_summa()
+                }else{
+                    chek[i].soni -= 1;
+                    chek[i].summa -= chek[i].narx;
+                    table_add()
+                    calculate_summa()
+                }
+                break;
+            }
+        }
+    }
+
+    //end
+
+
+    //bu funksiya qoshilgan tovar nechta bolishidan qat'iy nazar spiskadan chiqarib tashlaydi
+
+    function remove_item(id){
+        for(let i = 0; i < chek.id; i++){
+            if(chek[i].id == id){
+                chek.splice(i, 1);
+                break;
+            }else{
+                continue
+            }
+        }
+    }
+
+    //end
+
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+
+
+    function make_pay(){
+
+        let data = new FormData();
+        data.append('csrfmiddlewaretoken', '{{csrf_token}}')
+        data.append('chek', chek)
+
+        axios.post("{% url 'make_pay' %}", data)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </html>

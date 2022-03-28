@@ -136,4 +136,6 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 # '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'
