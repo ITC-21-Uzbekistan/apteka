@@ -1,4 +1,4 @@
-from django.urls import path,include
+from django.urls import path, include
 from .views import nakladnoy, deletePrixod, add_dori, glavni, postavshik, deleteNakladnoy, create_dori
 from .views import pereotsenka, newPereotsenka, search_tovars
 from .views import spisaniya, new_spisaniya

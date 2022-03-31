@@ -270,7 +270,7 @@
                         let template = {
                             id: parseInt(data.id),
                             nakladnoy: data.nakladnoy,
-                            tovar: data.tovar,
+                            tovar: data.tovar.name,
                             srok: data.srok,
                             narx: data.narx,
                             soni: 1,
@@ -451,7 +451,7 @@
 
         let data = new FormData();
         data.append('csrfmiddlewaretoken', '{{csrf_token}}')
-        data.append('chek', chek)
+        data.append('chek', JSON.stringify(chek))
 
         axios.post("{% url 'make_pay' %}", data)
             .then(res => {

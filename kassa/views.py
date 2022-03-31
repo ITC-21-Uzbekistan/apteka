@@ -1,15 +1,40 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from dorilar.models import Nakladnoy
 import json
+from kassir.models import Kassir
+from logics.password_hash import check_password
 
 
 def main(request):
-    return render(request, 'kassa/Main.html')
+    if request.method == "POST":
+        username = str(request.POST.get('username'))
+        if check_username(username):
+            password = str(request.POST.get('password'))
+            if check_kassir(username, password):
+                return render(request, 'kassa/Main.html')
+            else:
+                return redirect('/')
+        else:
+            return redirect('/')
+    else:
+        return render(request, 'kassa/home.html')
 
 
-def table(request):
-    return render(request, 'kassa/table.html')
+def check_username(username):
+    try:
+        Kassir.objects.get(username=username)
+        return True
+    except:
+        return False
+
+
+def check_kassir(user, password):
+    user = Kassir.objects.get(username=user)
+    if check_password(user.password, password):
+        return True
+    else:
+        return False
 
 
 def get_shtrixkod(request):
@@ -45,7 +70,12 @@ def get_shtrixkod(request):
         response['tovar'] = {
             'id': response_obj.id,
             'nakladnoy': response_obj.nakladnoy.nakladnoy_nom,
-            'tovar': response_obj.tovar.name,
+            'tovar': {
+                'name': response_obj.tovar.name,
+                'shtrixKod': response_obj.tovar.shtrixKod,
+                'tip_tovara': response_obj.tovar.tip_tovara.tip,
+                'shtukPachke': response_obj.tovar.shtukPachke
+            },
             'srok': str(response_obj.srok),
             'narx': float(response_obj.sotiladigan_narx),
         }
@@ -60,7 +90,17 @@ def get_shtrixkod(request):
 
 def make_pay(request):
     if request.method == 'POST':
-        print(request.POST.get('chek'))
         data = json.loads(request.POST.get('chek'))
         print(data)
+        # if len(data) == 1:
+        #     data = data[0]
+        #     Shot.objects.create(
+        #         tovar_id=data['id'],
+        #         nakladnoy=data['nakladnoy'],
+        #         tovar=data['tovar'],
+        #         srok=data['srok'],
+        #         narx=data['narx'],
+        #         soni=data['soni'],
+        #         summa=data['soni']
+        #     )
         return HttpResponse("Malades ukam")

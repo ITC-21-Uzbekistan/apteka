@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dorilar',
     'crispy_forms',
+    'kassir',
+    'kassa',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -138,4 +140,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# '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'
+# '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'
