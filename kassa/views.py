@@ -12,7 +12,7 @@ def main(request):
         if check_username(username):
             password = str(request.POST.get('password'))
             if check_kassir(username, password):
-                return render(request, 'kassa/Main.html')
+                return render(request, 'kassa/Main.html', {"id": Kassir.objects.get(username=username).id})
             else:
                 return redirect('/')
         else:
