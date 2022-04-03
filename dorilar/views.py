@@ -137,21 +137,22 @@ def deletePrixod(request, idd):
 
 def pereotsenka(request):
     if request.method == "GET":
-        pereotsen = Pereotsenka.objects.all()
         obj = []
+        pereotsen = Pereotsenka.objects.all()
         for elem in pereotsen:
             obj.append({
                 'name': str(Nakladnoy.objects.get(id=elem.tovar_id).tovar.name),
                 'naklad': int(Nakladnoy.objects.get(id=elem.tovar_id).nakladnoy.nakladnoy_nom),
                 'changes': elem
             })
-    return render(
-        request,
-        'pereotsenka/pereotsenka.html',
-        {
-            "pereotsenki": obj
-        }
-    )
+
+        return render(
+            request,
+            'pereotsenka/pereotsenka.html',
+            {
+                "pereotsenki": obj
+            }
+        )
 
 
 def newPereotsenka(request, id):
@@ -178,6 +179,31 @@ def newPereotsenka(request, id):
     else:
         will_change = Nakladnoy.objects.get(id=id)
         return render(request, 'pereotsenka/pereotsenirovat.html', {"data": will_change})
+
+
+def get_tovar_by_shtrix(request):
+    response = {
+        'success': False,
+        'message': "This tovar doesn't have",
+        'data': []
+    }
+    try:
+        will_get = request.GET['shtrix']
+        lists = list(Nakladnoy.objects.filter(tovar__shtrixKod=will_get))
+        response['success'] = True
+        for obj in lists:
+            response['data'].append({
+                "id": int(obj.id),
+                "name": str(obj.tovar.name),
+                "nakladnoy": int(obj.nakladnoy.nakladnoy_nom),
+                "srok": str(obj.srok),
+                "date": str(obj.date_dobavlen)
+            })
+    except:
+        response['success'] = False
+        print("Bad")
+    finally:
+        return JsonResponse(response, safe=False)
 
 
 def search_tovars(request):
