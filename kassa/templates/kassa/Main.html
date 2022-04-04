@@ -31,6 +31,7 @@
             <div class="col-1 bg-light d-flex justify-content-center align-items-center rounded my-2 mx-5">
                 <h4 class="mt-2">Logo</h4>
             </div>
+            <div class="h4">{{user}}</div>
             <div class="col-2 d-flex flex-row text-light">
                 <div class="container-fluid d-flex flex-row text-light">
                     <div class="col-7 border-end d-flex justify-content-center align-items-center">
@@ -270,7 +271,7 @@
                         let template = {
                             id: parseInt(data.id),
                             nakladnoy: data.nakladnoy,
-                            tovar: data.tovar.name,
+                            tovar: data.tovar,
                             srok: data.srok,
                             narx: data.narx,
                             soni: 1,
@@ -329,7 +330,7 @@
 
 
             let tovar = document.createElement('td');
-            tovar.innerHTML = item.tovar;
+            tovar.innerHTML = item.tovar.name;
             elem.appendChild(tovar);
 
 

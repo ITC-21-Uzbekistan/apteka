@@ -6,6 +6,7 @@ class ArxivAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'nakladnoy',
+        'tovar_id',
         'tovar_name',
         'tovar_shtrix_kod',
         'tovar_shtuk_pachke',

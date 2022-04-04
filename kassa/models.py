@@ -3,7 +3,8 @@ from kassir.models import Kassir
 
 
 class Arxiv(models.Model):
-    nakladnoy = models.BinaryField()
+    nakladnoy = models.BigIntegerField()
+    tovar_id = models.BigIntegerField()
     tovar_name = models.CharField(max_length=500)
     tovar_shtrix_kod = models.BigIntegerField()
     tovar_shtuk_pachke = models.IntegerField()
@@ -12,7 +13,7 @@ class Arxiv(models.Model):
     srok = models.DateField()
     soni = models.BigIntegerField()
     summa = models.FloatField()
-    sold = models.DateTimeField()
+    sold = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Kassir, on_delete=models.CASCADE)
 
     def __str__(self):

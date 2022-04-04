@@ -140,4 +140,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# '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'
+# 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
