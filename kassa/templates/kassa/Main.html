@@ -1,30 +1,38 @@
 <!doctype html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .main{
-          /* fallback for old browsers */
-          background: #30cfd0;
+        .main {
+            /* fallback for old browsers */
+            background: #30cfd0;
 
-          /* Chrome 10-25, Safari 5.1-6 */
-          background: -webkit-linear-gradient(to top, rgba(48, 207, 208, 0.4), rgba(51, 8, 103, 0.4));
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to top, rgba(48, 207, 208, 0.4), rgba(51, 8, 103, 0.4));
 
-          /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-          background: linear-gradient(to top, rgba(48, 207, 208, 0.4), rgba(51, 8, 103, 0.4))
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to top, rgba(48, 207, 208, 0.4), rgba(51, 8, 103, 0.4))
         }
-        #search{
+
+        #search {
             border: 0;
             outline: none;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+
 <body>
     <div class="container-fluid p-0 main" id="height">
         <div class="container-fluid gradient-custom d-flex flex-row justify-content-between p-0" style="height: 5%;">
@@ -49,13 +57,18 @@
                     <div class="col-10">
                         <div class="input-group mb-2 p-0">
                             <div class="input-group-prepend shadow">
-                                <span class="input-group-text px-2 py-0 h-100 text-light" id="basic-addon1" style="background-color: rgb(0, 148, 214);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="58" fill="currentColor" class="bi bi-upc" viewBox="0 0 16 16">
-                                        <path d="M3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+                                <span class="input-group-text px-2 py-0 h-100 text-light" id="basic-addon1"
+                                    style="background-color: rgb(0, 148, 214);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="58" fill="currentColor"
+                                        class="bi bi-upc" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z" />
                                     </svg>
                                 </span>
                             </div>
-                            <input type="text" class="border shadow" value="" id="default" style="font-size: 25px; outline: none; border: none; width: 90%; height: 60px" onkeydown="myFunction(event)">
+                            <input type="text" class="border shadow" value="" id="default"
+                                style="font-size: 25px; outline: none; border: none; width: 90%; height: 60px"
+                                onkeydown="myFunction(event)">
                         </div>
                     </div>
                 </div>
@@ -103,10 +116,12 @@
                     </div>
                     <div class="col">
                         <div class="row">
-                            <button class="btn btn-secondary">Vozvrat tovara</button>
+                            <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                data-target="#vozvrat">Vozvrat tovara</button>
                         </div>
                         <div class="row">
-                            <button class="btn btn-success mt-2" style="padding: 29px;" onclick="make_pay()">Oplatit</button>
+                            <button class="btn btn-success mt-2" style="padding: 29px;"
+                                onclick="make_pay()">Oplatit</button>
                         </div>
                     </div>
                 </div>
@@ -115,7 +130,7 @@
                 <div class="container">
                     <div class="row p-2 d-flex justify-content-between py-2">
                         <button class="col-8 btn btn-secondary me-1" style="height: 80px;">fff</button>
-                        <button class="col btn btn-secondary ms-1">+</button>
+                        <button class="col btn btn-secondary ms-1" onclick="log_out_from_kassa()">Log out</button>
                     </div>
                     <div class="row p-2 d-flex justify-content-between py-2">
                         <button class="col btn btn-secondary me-1" style="height: 80px;">fff</button>
@@ -123,33 +138,39 @@
                     </div>
                     <div class="row p-2 d-flex justify-content-between py-2">
                         <form>
-                        <input type="text" class="form-control shadow-sm" style="font-size: 35px;" name="polya" value="" id="search">
+                            <input type="text" class="form-control shadow-sm" style="font-size: 35px;" name="polya"
+                                value="" id="calculator">
                         </form>
                     </div>
                     <div class="row p-1 d-flex justify-content-between py-1">
                         <button class="col btn btn-warning me-1" style="height: 100px;" onclick="insert('+')">+</button>
-                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('-')">-</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;"
+                            onclick="insert('-')">-</button>
                         <button class="col btn btn-success mx-1" style="height: 100px;" onclick="insert('*')">*</button>
                         <button class="col btn btn-success ms-1" style="height: 100px;" onclick="insert('/')">/</button>
                     </div>
                     <div class="row p-1 d-flex justify-content-between py-1">
                         <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('1')">1</button>
-                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('2')">2</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;"
+                            onclick="insert('2')">2</button>
                         <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('3')">3</button>
                     </div>
                     <div class="row p-1 d-flex justify-content-between py-1">
                         <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('4')">4</button>
-                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('5')">5</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;"
+                            onclick="insert('5')">5</button>
                         <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('6')">6</button>
                     </div>
                     <div class="row p-1 d-flex justify-content-between py-1">
                         <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('7')">7</button>
-                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('8')">8</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;"
+                            onclick="insert('8')">8</button>
                         <button class="col btn btn-secondary" style="height: 100px;" onclick="insert('9')">9</button>
                     </div>
                     <div class="row p-1 d-flex justify-content-between py-1">
                         <button class="col btn btn-warning" style="height: 100px;" onclick="clean()">C</button>
-                        <button class="col btn btn-secondary mx-1" style="height: 100px;" onclick="insert('0')">0</button>
+                        <button class="col btn btn-secondary mx-1" style="height: 100px;"
+                            onclick="insert('0')">0</button>
                         <button class="col btn btn-success" style="height: 100px;" onclick="javob()">=</button>
                     </div>
                     <div class="container-fluid bg-dark">
@@ -161,30 +182,277 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-warning" onclick="goo()">Ok Google!</button>
-    <form action="" method="post">
-        {% csrf_token %}
-    </form>
+
+    <!-- Vozvrat tovara uchun modal oyna -->
+
+    <div class="modal fade" id="vozvrat">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header р4">
+                    Создания приходная накладная
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" id="trans">
+
+                    <div class="row">
+                        <form action="" method="POST" class="col">
+                            {% csrf_token %}
+                            <div class="col">
+                                <input type="search" id="search" autocomplete="off" name="search" class="form-control"
+                                    placeholder="Search by name">
+                            </div>
+                        </form>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="number" class="form-control" name="shtrix"
+                                        placeholder="Search by shtrix kod" id="search_shtrix"
+                                        onkeydown="run_search_by_shtrix(event)">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-success" type="button"
+                                        onclick="serch_by_shtrix()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hullas row">
+                        <div class="appending col" id="appending">
+                            <div class="row m-2 p-1 bg-warning">
+                                <div class="col">Name</div>
+                                <div class="col">Srok</div>
+                                <div class="col">Time</div>
+                                <div class="col">Soni</div>
+                                <div class="col">Ok</div>
+                            </div>
+                            <!--Appending will be created here-->
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="container bg-secondary d-flex justify-content-end p-2">
+                        <button type="button" class="btn btn-black bg-black text-white"
+                            data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end -->
+
+
 </body>
-    <script>
+
+<script>
+    function run_search_by_shtrix(event) {
+        var x = event.keyCode;
+
+        if (x == 13) {
+            serch_by_shtrix()
+        }
+    }
+
+    let check = 0;
+
+    function serch_by_shtrix() {
+
+        let will_search = document.getElementById('search_shtrix').value;
+
+        if (will_search != "") {
+            axios.get("{% url 'searchShtrix' %}", {
+
+                params: {
+                    shtrix: will_search
+                }
+
+            }).then(res => {
+
+                if (res.data.success) {
+                    //True
+                    if (check != 0) {
+                        let wildelete = document.querySelectorAll(".dele")
+                        for (let i = 0; i < wildelete.length; i++) {
+                            wildelete[i].remove();
+                        }
+                    }
+
+                    let will_append = document.querySelector(".appending");
+
+                    res.data.data.map(elem => {
+
+                        let newElement = document.createElement('a');
+                        newElement.classList.add("dele")
+                        newElement.classList.add("row")
+                        newElement.classList.add("text-white")
+                        newElement.classList.add("m-1")
+                        newElement.classList.add("p-1")
+                        newElement.style.textDecoration = 'none';
+                        will_append.appendChild(newElement)
+                        newElement.setAttribute("href", ``)
+
+                        let new_name = document.createElement('div');
+                        new_name.classList.add('col')
+                        new_name.classList.add('p-1')
+                        new_name.classList.add('bg-secondary')
+                        new_name.innerHTML = elem.name
+                        newElement.appendChild(new_name)
+
+                        let new_name2 = document.createElement('div');
+                        new_name2.classList.add('col')
+                        new_name2.classList.add('p-1')
+                        new_name2.classList.add('bg-secondary')
+                        new_name2.innerHTML = elem.srok
+                        newElement.appendChild(new_name2)
+
+                        let new_name3 = document.createElement('div');
+                        new_name3.classList.add('col')
+                        new_name3.classList.add('p-1')
+                        new_name3.classList.add('bg-secondary')
+                        new_name3.innerHTML = elem.sold_time
+                        newElement.appendChild(new_name3)
+
+                        let new_name4 = document.createElement('div');
+                        new_name4.classList.add('col')
+                        new_name4.classList.add('p-1')
+                        new_name4.classList.add('bg-secondary')
+                        new_name4.innerHTML = elem.soni
+                        newElement.appendChild(new_name4)
+
+                        let new_name5 = document.createElement('div');
+                        new_name5.classList.add('col')
+                        new_name5.classList.add('p-1')
+                        new_name5.classList.add('bg-secondary')
+                        new_name5.innerHTML = elem.kassir
+                        newElement.appendChild(new_name5)
+
+                        check += 1
+                    })
+                } else {
+                    //False
+                    alert("This shtrix kod desn't exsists")
+                }
+            })
+        }
+    }
+</script>
+
+<script>
+    let search_field = document.getElementById("search");
+    search_field.addEventListener("keyup", () => {
+
+        if (check != 0) {
+            let wildelete = document.querySelectorAll(".dele")
+            for (let i = 0; i < wildelete.length; i++) {
+                wildelete[i].remove();
+            }
+        }
+
+        let data = document.getElementById("search").value;
+        data.toLowerCase();
+
+        if (data != "") {
+            axios.get("{% url 'searchByName' %}", {
+                params: {
+                    data: data
+                }
+            }).then(res => {
+                let will_append = document.querySelector(".appending");
+                res.data.map((elem) => {
+
+                    let newElement = document.createElement('a');
+                    newElement.classList.add("dele")
+                    newElement.classList.add("row")
+                    newElement.classList.add("text-white")
+                    newElement.classList.add("m-1")
+                    newElement.classList.add("p-1")
+                    newElement.style.textDecoration = 'none';
+                    will_append.appendChild(newElement)
+                    newElement.setAttribute("href", ``)
+
+                    let new_name = document.createElement('div');
+                    new_name.classList.add('col')
+                    new_name.classList.add('p-1')
+                    new_name.classList.add('bg-secondary')
+                    new_name.innerHTML = elem.name
+                    newElement.appendChild(new_name)
+
+                    let new_name2 = document.createElement('div');
+                    new_name2.classList.add('col')
+                    new_name2.classList.add('p-1')
+                    new_name2.classList.add('bg-secondary')
+                    new_name2.innerHTML = elem.srok
+                    newElement.appendChild(new_name2)
+
+                    let new_name3 = document.createElement('div');
+                    new_name3.classList.add('col')
+                    new_name3.classList.add('p-1')
+                    new_name3.classList.add('bg-secondary')
+                    new_name3.innerHTML = elem.sold_time
+                    newElement.appendChild(new_name3)
+
+                    let new_name4 = document.createElement('div');
+                    new_name4.classList.add('col')
+                    new_name4.classList.add('p-1')
+                    new_name4.classList.add('bg-secondary')
+                    new_name4.innerHTML = elem.soni
+                    newElement.appendChild(new_name4)
+
+                    let new_name5 = document.createElement('div');
+                    new_name5.classList.add('col')
+                    new_name5.classList.add('p-1')
+                    new_name5.classList.add('bg-secondary')
+                    new_name5.innerHTML = elem.kassir
+                    newElement.appendChild(new_name5)
+
+                    check += 1
+                })
+            })
+        }
+    })
+</script>
+
+<script>
+
+    // log out from kassa
+
+    function log_out_from_kassa() {
+        if (confirm("Are you sure")) {
+            axios.get("{% url 'logout' %}").then(res => {
+                location.reload()
+            })
+        }
+    }
+
+    //end
+
+
 
     //Jasur kalkulator uchun yozgan funksiyalari
 
-    function insert(ok){
-        document.getElementById("search").value = document.getElementById("search").value + ok;   
+    function insert(ok) {
+        document.getElementById("calculator").value = document.getElementById("calculator").value + ok;
     }
 
-    function clean(){
-        document.getElementById("search").value = "";
+    function clean() {
+        document.getElementById("calculator").value = "";
     }
 
-    function javob(){
-        var key = document.getElementById("search").value;    
-        document.getElementById("search").value = eval(key);
+    function javob() {
+        var key = document.getElementById("calculator").value;
+        document.getElementById("calculator").value = eval(key);
     }
-    
+
     //end
-    
+
+    document.getElementById("calculator")
+
 
     //experiment
 
@@ -197,7 +465,7 @@
 
     //sayt scroll bolmasligi uchun javob beradigan funksiya
 
-    setInterval(()=>{
+    setInterval(() => {
         document.getElementById("height").style.height = window.innerHeight + "px";
     }, 1);
 
@@ -215,7 +483,7 @@
 
     //bu funksiya saytdagi soatga javob beradigan fuksiya
 
-    setInterval(()=>{
+    setInterval(() => {
         let now = new Date();
 
         let date = now.getDate();
@@ -226,11 +494,11 @@
         document.getElementById('date').innerHTML = `${date} ${month}`;
 
         let hour = now.getHours();
-        if (hour < 10){
+        if (hour < 10) {
             hour = `0${hour}`
         }
         let minutes = now.getMinutes();
-        if (minutes < 10){
+        if (minutes < 10) {
             minutes = `0${minutes}`
         }
         document.getElementById('time').innerHTML = `${hour}:${minutes}`
@@ -259,15 +527,15 @@
                 }
             }).then(res => {
                 document.getElementById('default').value = '';
-                if(res.data.except == ''){
+                if (res.data.except == '') {
                     let data = res.data.tovar
 
                     let exists = check_exists_or_no(data.id)
 
-                    if(exists){
+                    if (exists) {
                         add_tovar(data.id)
                         calculate_summa()
-                    }else{
+                    } else {
                         let template = {
                             id: parseInt(data.id),
                             nakladnoy: data.nakladnoy,
@@ -279,13 +547,13 @@
                             user: parseInt('{{id}}')
                         }
                         chek.push(template)
-                        
+
                         table_add()
                         calculate_summa()
                     }
 
 
-                }else{
+                } else {
                     document.getElementById('default').value = '';
                     alert("This tovar doesn't exists")
                 }
@@ -299,13 +567,13 @@
 
     // kiritilgan tovar array ichida bor yoki yoqligini tekshiradigan funksiya
 
-    function check_exists_or_no(id){
+    function check_exists_or_no(id) {
         let res = false;
-        for(elem of chek){
-            if(elem.id == id){
+        for (elem of chek) {
+            if (elem.id == id) {
                 res = true;
                 break;
-            }else{
+            } else {
                 continue;
             }
         }
@@ -317,7 +585,7 @@
 
     //tablega content qoshadigan funksiya
 
-    function table_add(){
+    function table_add() {
         table_body.innerHTML = '';
         chek.map(item => {
             var elem = document.createElement('tr');
@@ -359,7 +627,7 @@
             elem.appendChild(summa)
 
 
-            let dif =   `<a onclick="delete_item(${item.id})" oncontextmenu="remove_item(${item.id})" style="cursor: pointer;">
+            let dif = `<a onclick="remove_item(${item.id})" style="cursor: pointer;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -368,7 +636,13 @@
             let delete_tovar = document.createElement('td');
             delete_tovar.innerHTML = dif;
             elem.appendChild(delete_tovar)
-            
+
+            let sex = `<a onclick="remove_one(${item.id})" style="cursor: pointer;"><b>-</b></a>`;
+
+            let remove_one = document.createElement("td");
+            remove_one.innerHTML = sex;
+            elem.appendChild(remove_one)
+
             table_body.appendChild(elem)
             calculate_summa()
         })
@@ -380,9 +654,9 @@
 
     //bu funksiya tovar sonini bittaga oshiradi
 
-    function add_tovar(id){
+    function add_tovar(id) {
         for (elem of chek) {
-            if(elem.id == id){
+            if (elem.id == id) {
                 elem.soni += 1;
                 elem.summa += elem.narx;
                 table_add()
@@ -396,9 +670,9 @@
 
     //bu funksiya umumiy summani hisoblab ekranga chiqaradi
 
-    function calculate_summa(){
+    function calculate_summa() {
         umumiy_summa = 0;
-        for (sum of chek){
+        for (sum of chek) {
             umumiy_summa += sum.summa;
         }
         document.getElementById('umumiy').innerHTML = umumiy_summa;
@@ -409,15 +683,14 @@
 
     //chekdan tovar sonini bittaga kamaytiradi agar 1 ta qolgan bolsa arraydan ochirib tashlaydigan funksiya
 
-    function delete_item(id){
-        console.log(id);
-        for (let i = 0; i < chek.length; i++){
-            if(chek[i].id == id){
-                if(chek[i].soni == 1){
+    function remove_one(id) {
+        for (let i = 0; i < chek.length; i++) {
+            if (chek[i].id == id) {
+                if (chek[i].soni == 1) {
                     chek.splice(i, 1)
                     table_add()
                     calculate_summa()
-                }else{
+                } else {
                     chek[i].soni -= 1;
                     chek[i].summa -= chek[i].narx;
                     table_add()
@@ -433,12 +706,14 @@
 
     //bu funksiya qoshilgan tovar nechta bolishidan qat'iy nazar spiskadan chiqarib tashlaydi
 
-    function remove_item(id){
-        for(let i = 0; i < chek.id; i++){
-            if(chek[i].id == id){
+    function remove_item(id) {
+        for (let i = 0; i < chek.length; i++) {
+            if (chek[i].id == id) {
                 chek.splice(i, 1);
+                table_add()
+                calculate_summa()
                 break;
-            }else{
+            } else {
                 continue
             }
         }
@@ -446,10 +721,10 @@
 
     //end
 
-    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+    // const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
 
 
-    function make_pay(){
+    function make_pay() {
 
         let data = new FormData();
         data.append('csrfmiddlewaretoken', '{{csrf_token}}')
@@ -457,13 +732,22 @@
 
         axios.post("{% url 'make_pay' %}", data)
             .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
+                if (res.data == "SUCCESS") {
+                    chek = []
+                    table_add()
+                    calculate_summa()
+                } else {
+                    alert("Try again later")
+                }
             })
     }
 
 </script>
+
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

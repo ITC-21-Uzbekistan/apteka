@@ -118,8 +118,6 @@
         function serch_by_shtrix() {
             let will_search = document.getElementById('search_shtrix').value;
 
-            console.log("Hello")
-
             if(will_search != ""){
                 axios.get("{% url 'search_shtrix' %}", {
 

@@ -1,28 +1,61 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from dorilar.models import Nakladnoy
 import json
 from kassir.models import Kassir
 from logics.password_hash import check_password
 from .models import Arxiv
+from django.views.generic.base import RedirectView
+
+
+class Bekki:
+    def __init__(self):
+        self.checking_kassir = False
+        self.username = None
+
+    def make_false(self):
+        self.checking_kassir = False
+
+    def make_true(self):
+        self.checking_kassir = True
+
+
+checking_kassir = Bekki()
 
 
 def main(request):
+    if checking_kassir.checking_kassir:
+        return render(request, 'kassa/Main.html', {
+            'id': Kassir.objects.get(username=checking_kassir.username).id,
+            'user': Kassir.objects.get(username=checking_kassir.username).name
+        })
+    else:
+        return redirect('/login/')
+
+
+# authontification in kassa
+
+def authontification(request):
     if request.method == "POST":
-        username = str(request.POST.get('username'))
-        if check_username(username):
-            password = str(request.POST.get('password'))
-            if check_kassir(username, password):
-                return render(request, 'kassa/Main.html', {
-                    "id": Kassir.objects.get(username=username).id,
-                    "user": str(Kassir.objects.get(username=username).name)
-                })
-            else:
+        checking_kassir.username = request.POST.get('username')
+        password = request.POST.get('password')
+        if check_username(checking_kassir.username):
+            if check_kassir_password(checking_kassir.username, password):
+                checking_kassir.make_true()
                 return redirect('/')
+            else:
+                return redirect('/login/')
         else:
-            return redirect('/')
+            return redirect('/login/')
     else:
         return render(request, 'kassa/home.html')
+
+
+# log out from kassa
+
+def log_out_from_kassa(request):
+    checking_kassir.make_false()
+    return redirect('/')
 
 
 def check_username(username):
@@ -33,7 +66,75 @@ def check_username(username):
         return False
 
 
-def check_kassir(user, password):
+# search tovars which was sold
+
+
+def search_arxiv(request):
+    will_search = str(request.GET['data'])
+    lists = list(Arxiv.objects.filter(tovar_name__contains=will_search))
+    response = []
+    for obj in lists:
+        response.append({
+            "id": int(obj.id),
+            "name": str(obj.tovar_name),
+            "tovar_id": int(obj.tovar_id),
+            "narx": float(obj.narx),
+            "soni": int(obj.soni),
+            "sold_time": obj.sold,
+            "srok": str(obj.srok),
+            "kassir": str(obj.user.name)
+        })
+    return JsonResponse(response, safe=False)
+
+
+# search and get tovars from arxiv
+
+
+def search_from_arxiv_by_shtrix(request):
+    response = {
+        'success': False,
+        'message': "This tovar doesn't have",
+        'data': []
+    }
+    try:
+        will_get = request.GET['shtrix']
+        lists = list(Arxiv.objects.filter(tovar_shtrix_kod=will_get))
+        response['success'] = True
+        for obj in lists:
+            response['data'].append({
+                "id": int(obj.id),
+                "name": str(obj.tovar_name),
+                "tovar_id": int(obj.tovar_id),
+                "narx": float(obj.narx),
+                "soni": int(obj.soni),
+                "sold_time": obj.sold,
+                "srok": str(obj.srok),
+                "kassir": str(obj.user.name)
+            })
+    except:
+        response['success'] = False
+        print("Bad")
+    finally:
+        return JsonResponse(response, safe=False)
+
+
+def do_vozvrat(request):
+    print(request.POST.get('id'))
+    id = request.POST.get('id')
+    soni = request.POST.get('soni')
+
+    will_vozvrat = Arxiv.objects.get(id=id)
+
+    if will_vozvrat.soni == 1:
+        tovar = Nakladnoy.objects.get(id=will_vozvrat.tovar_id)
+        tovar.olingan_soni += 1
+        tovar.save()
+        will_vozvrat.delete()
+    else:
+        pass
+
+
+def check_kassir_password(user, password):
     user = Kassir.objects.get(username=user)
     if check_password(user.password, password):
         return True
