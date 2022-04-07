@@ -34,6 +34,15 @@
 </head>
 
 <body>
+    <!-- Alert box -->
+
+    <div class="alert alert-success m-3 shadow" role="alert" id="hidd_success" style="position: fixed; width: 98%; z-index: 9999999; display: none;"></div>
+
+
+    <div class="alert alert-warning m-3 shadow" role="alert" id="hidd_unsuccess" style="position: fixed; width: 98%; z-index: 9999999; display: none;"></div>
+
+
+    <!-- end -->
     <div class="container-fluid p-0 main" id="height">
         <div class="container-fluid gradient-custom d-flex flex-row justify-content-between p-0" style="height: 5%;">
             <div class="col-1 bg-light d-flex justify-content-center align-items-center rounded my-2 mx-5">
@@ -248,7 +257,114 @@
     <!-- end -->
 
 
+    <!-- Confirmation window vozvrata -->
+
+
+    <div class="modal fade" id="confirmVozvrat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                </div>
+                <div class="modal-body h4">
+                    <div class="row bg-warning p-2">
+                        <div class="col">Tovar:</div>
+                        <div class="col" id="tovar"></div>
+                    </div>
+                    <div class="row bg-danger p-2">
+                        <div class="col">Narx:</div>
+                        <div class="col" id="narx"></div>
+                    </div>
+                    <div class="row bg-secondary p-2">
+                        <div class="col">Soni:</div>
+                        <div class="col" id="soni"></div>
+                    </div>
+                    <div class="row bg-primary p-2" id="num_vozvrat">
+                        <div class="col">Vozvrat:</div>
+                        <div class="col">
+                            <input type="number" class="form-control" id="defaultConfirm" value="" max="" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="sendPOST">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end -->
+
 </body>
+
+<script>
+
+    function get_from_arxiv(id) {
+        console.log(id)
+
+        axios.get("{% url 'do_vozvrat' %}", {
+            params: {
+                id: id
+            }
+        }).then(res => {
+            console.log(res.data)
+            let vozvrat_soni = 0;
+            if (res.data.success) {
+                document.getElementById('defaultConfirm').value = 1;
+                document.getElementById('defaultConfirm').setAttribute('max', `${res.data.data.soni}`)
+                document.getElementById('tovar').innerHTML = res.data.data.name;
+                document.getElementById('narx').innerHTML = res.data.data.narx;
+                document.getElementById('soni').innerHTML = res.data.data.soni;
+
+                if (res.data.data.soni == 1) {
+                    document.getElementById('num_vozvrat').style.display = 'none';
+                } else {
+                    document.getElementById('num_vozvrat').style.display = 'flex';
+                }
+
+                document.getElementById('sendPOST').setAttribute('onclick', `do_vozvrat(${res.data.data.id})`)
+            } else {
+                alert(res.data.message)
+            }
+        })
+    }
+
+    function do_vozvrat(id) {
+        if (parseInt(document.getElementById('soni').innerHTML) < parseInt(document.getElementById('defaultConfirm').value)) {
+            alert("Number od tovar must be equal or less than sold tovar's number")
+        } else {
+            let sonn = document.getElementById('defaultConfirm').value;
+            let data = new FormData();
+            data.append('csrfmiddlewaretoken', '{{csrf_token}}')
+            data.append('id', id)
+            data.append('soni', sonn)
+
+            axios.post("{% url 'do_vozvrat' %}", data)
+                .then(res => {
+                    if (res.data.success) {
+                        let allert = document.getElementById('hidd_success');
+                        allert.innerHTML = res.data.message
+                        allert.style.display = "block";
+                        setTimeout(()=>{
+                            allert.style.display = "none";
+                            window.location.reload()
+                        }, 2000)
+                    } else {
+                        let allert = document.getElementById('hidd_unsuccess');
+                        allert.innerHTML = res.data.message
+                        allert.style.display = "block";
+                        setTimeout(()=>{
+                            allert.style.display = "none";
+                        }, 2000)
+                        window.location.reload()
+                    }
+                })
+        }
+
+    }
+</script>
 
 <script>
     function run_search_by_shtrix(event) {
@@ -288,14 +404,17 @@
                     res.data.data.map(elem => {
 
                         let newElement = document.createElement('a');
+                        newElement.setAttribute("data-toggle", "modal")
+                        newElement.setAttribute("data-target", "#confirmVozvrat")
+                        newElement.setAttribute("onclick", `get_from_arxiv(${elem.id})`)
                         newElement.classList.add("dele")
                         newElement.classList.add("row")
                         newElement.classList.add("text-white")
                         newElement.classList.add("m-1")
                         newElement.classList.add("p-1")
                         newElement.style.textDecoration = 'none';
+                        newElement.style.cursor = 'pointer';
                         will_append.appendChild(newElement)
-                        newElement.setAttribute("href", ``)
 
                         let new_name = document.createElement('div');
                         new_name.classList.add('col')
@@ -367,14 +486,18 @@
                 res.data.map((elem) => {
 
                     let newElement = document.createElement('a');
+                    newElement.setAttribute("data-toggle", "modal")
+                    newElement.setAttribute("data-target", "#confirmVozvrat")
+                    newElement.setAttribute("onclick", `get_from_arxiv(${elem.id})`)
                     newElement.classList.add("dele")
                     newElement.classList.add("row")
                     newElement.classList.add("text-white")
                     newElement.classList.add("m-1")
                     newElement.classList.add("p-1")
                     newElement.style.textDecoration = 'none';
+                    newElement.style.cursor = 'pointer';
                     will_append.appendChild(newElement)
-                    newElement.setAttribute("href", ``)
+                    // newElement.setAttribute("href", ``)
 
                     let new_name = document.createElement('div');
                     new_name.classList.add('col')

@@ -119,19 +119,62 @@ def search_from_arxiv_by_shtrix(request):
 
 
 def do_vozvrat(request):
-    print(request.POST.get('id'))
-    id = request.POST.get('id')
-    soni = request.POST.get('soni')
+    # print(request.POST.get('id'))
+    # id = request.POST.get('id')
+    # soni = request.POST.get('soni')
+    #
+    # will_vozvrat = Arxiv.objects.get(id=id)
+    #
+    # if will_vozvrat.soni == 1:
+    #     tovar = Nakladnoy.objects.get(id=will_vozvrat.tovar_id)
+    #     tovar.olingan_soni += 1
+    #     tovar.save()
+    #     will_vozvrat.delete()
+    # else:
+    #     pass
+    if request.method == "POST":
+        will_vozvrat = Arxiv.objects.get(id=request.POST.get('id'))
+        print()
+        will_add = Nakladnoy.objects.get(id=int(will_vozvrat.tovar_id))
 
-    will_vozvrat = Arxiv.objects.get(id=id)
+        if will_vozvrat.soni == 1:
+            will_add.olingan_soni = will_add.olingan_soni + 1
+            will_add.save()
+            will_vozvrat.delete()
 
-    if will_vozvrat.soni == 1:
-        tovar = Nakladnoy.objects.get(id=will_vozvrat.tovar_id)
-        tovar.olingan_soni += 1
-        tovar.save()
-        will_vozvrat.delete()
+            return JsonResponse({
+                'success': True,
+                'message': 'This tovar was successfully vozvrated'
+            })
+        else:
+            if will_vozvrat.soni - int(request.POST.get('soni')) == 0:
+                will_add.olingan_soni = will_add.olingan_soni + int(request.POST.get('soni'))
+                will_vozvrat.delete()
+                will_add.save()
+            else:
+                will_vozvrat.soni = will_vozvrat.soni - int(request.POST.get('soni'))
+                will_add.olingan_soni = will_add.olingan_soni + int(request.POST.get('soni'))
+                will_vozvrat.save()
+                will_add.save()
+
+            return JsonResponse({
+                'success': True,
+                'message': 'This tovar was successfully vozvrated'
+            })
     else:
-        pass
+        id = request.GET.get('id')
+        print(id)
+        arxiv_tovar = Arxiv.objects.get(id=id)
+        return JsonResponse({
+            'success': True,
+            'message': 'SUCCESS',
+            'data': {
+                'id': arxiv_tovar.id,
+                'name': arxiv_tovar.tovar_name,
+                'narx': arxiv_tovar.narx,
+                'soni': arxiv_tovar.soni
+            }
+        }, safe=False)
 
 
 def check_kassir_password(user, password):
